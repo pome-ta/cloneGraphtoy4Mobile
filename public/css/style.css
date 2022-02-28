@@ -8,13 +8,13 @@
 
 body
 {
- color: #ffffff;
- font-family: verdana, tahoma;
- font-size: 15px;
- background-color: #202020;
- margin: 0px;
- border: 0px;
- padding:24px;
+  color: #ffffff;
+  font-family: verdana, tahoma;
+  font-size: 15px;
+  background-color: #202020;
+  margin: 0px;
+  border: 0px;
+  padding:24px;
 }
 h1 { display: inline; }
 
@@ -43,7 +43,7 @@ div#formulaParamBar
   justify-content:flex-start;
   align-items:flex-start;
   align-content:flex-start;
-  
+
   row-gap:12px;
   column-gap:12px;
 }
@@ -58,24 +58,24 @@ div#formulaParamBar
 .uiFunc,
 .uiFuncB
 {
- box-sizing:border-box;
- margin:3px;
- border-color: #000000;
- border-radius:6px;
- color:#ffffff;
- padding-top: 6px;
- cursor: pointer;
- text-align: center;
- height:32px;
- background-color:var(--ctrlColor);
- user-select: none;
+  box-sizing:border-box;
+  margin:3px;
+  border-color: #000000;
+  border-radius:6px;
+  color:#ffffff;
+  padding-top: 6px;
+  cursor: pointer;
+  text-align: center;
+  height:32px;
+  background-color:var(--ctrlColor);
+  user-select: none;
 }
 .uiFunc  {width:88px; }
 .uiFuncB {grid-column:auto/span 2; }
 .uiFunc:hover,
 .uiFuncB:hover
 {
- background-color: var(--ctrlColorHover);
+  background-color: var(--ctrlColorHover);
 }
 
 .parts { display: grid; grid-template-columns: 1fr 1fr; padding-top:16px; column-gap:16px; }
@@ -97,11 +97,11 @@ a:hover { color: #ffffff; }
 
 .userInput
 {
- background-color: #202020;
- color: #ffffff;
- padding: 4px;
- font-size: 15px;
- border-radius:6px;
+  background-color: #202020;
+  color: #ffffff;
+  padding: 4px;
+  font-size: 15px;
+  border-radius:6px;
 }
 .formVis
 {
@@ -138,7 +138,7 @@ a:hover { color: #ffffff; }
 .userInputButtonsMedium:hover,
 .userInputButtonsSmall:hover
 {
- background-color: var(--ctrlColorHover);
+  background-color: var(--ctrlColorHover);
 }
 
 @media only screen and (max-width: 1024px)
@@ -153,3 +153,4 @@ a:hover { color: #ffffff; }
   .uiFunc  {width:auto;justify-self:stretch; }
   .guiWindow { border-radius:0px;}
 }
+
