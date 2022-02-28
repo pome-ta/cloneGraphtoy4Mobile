@@ -17,7 +17,7 @@ class View(ui.View):
     self.wv = WKWebView()
     self.wv.load_url(str(uri))
     self.wv.flex = 'WH'
-    #self.refresh_webview()
+    self.refresh_webview()
     self.add_subview(self.wv)
     self.set_reload_btn()
 
@@ -27,7 +27,7 @@ class View(ui.View):
 
   def set_reload_btn(self):
     self.close_btn = self.create_btn('iob:ios7_refresh_outline_32')
-    self.close_btn.action = (lambda sender: self.refresh_webview())
+    self.close_btn.action = (lambda sender: self.wv.reload())
     self.right_button_items = [self.close_btn]
 
   def create_btn(self, icon):
@@ -36,7 +36,7 @@ class View(ui.View):
 
   def refresh_webview(self):
     self.wv.clear_cache()
-    self.wv.reload()
+    #self.wv.reload()
 
 
 if __name__ == '__main__':
