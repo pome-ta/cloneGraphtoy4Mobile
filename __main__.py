@@ -20,7 +20,8 @@ class View(ui.View):
     self.refresh_webview()
 
     self.add_subview(self.wv)
-    self.setup_close_btn()
+    self.set_close_btn()
+    self.set_reload_btn()
 
   def layout(self):
     _x, _y, _w, _h = self.frame
@@ -32,14 +33,20 @@ class View(ui.View):
     self.wv.clear_cache()
     #self.wv.reload()
 
-  def setup_close_btn(self):
-    self.close_btn = self.create_btn('iob:ios7_close_32')
+  def set_close_btn(self):
+    self.close_btn = self.create_btn('iob:ios7_close_32', False)
     self.close_btn.action = (lambda sender: self.close())
     self.add_subview(self.close_btn)
+  
+  def set_reload_btn(self):
+    self.reload_btn = self.create_btn('iob:ios7_refresh_outline_32', True)
+    self.reload_btn.action = (lambda sender: self.wv.reload())
+    self.right_button_items = [self.reload_btn]
 
-  def create_btn(self, icon):
+  def create_btn(self, icon, item=False):
     btn_icon = ui.Image.named(icon)
-    return ui.Button(image=btn_icon)
+    _btn = ui.ButtonItem(image=btn_icon) if item else ui.Button(image=btn_icon)
+    return _btn
 
 
 if __name__ == '__main__':
@@ -47,7 +54,8 @@ if __name__ == '__main__':
   present_themed(
     view,
     theme_name='Theme09_Editorial',
-    style='fullscreen',
+    #style='fullscreen',
+    style='panel',
     hide_title_bar=True,
     orientations=['portrait'])
 
