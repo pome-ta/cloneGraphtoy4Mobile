@@ -186,7 +186,8 @@ function Grapher() {
   let mRefMouseY = -1.0;
   let mRangeType = 2;
   let mShowAxes = 1;
-  let mPaused = true;
+  //let mPaused = true;
+  let mPaused = false;
   let mTimeMS = 0;
   let mOffsetMS = 0;
   let mStartMS = 0;
