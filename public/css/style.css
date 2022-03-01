@@ -1,13 +1,11 @@
 /*@import url("./styleChecker.css");*/
 
-:root
-{
+:root {
   --ctrlColor: #606060;
   --ctrlColorHover: #b08010;
 }
 
-body
-{
+body {
   color: #ffffff;
   font-family: verdana, tahoma;
   font-size: 15px;
@@ -16,28 +14,25 @@ body
   border: 0px;
   padding:24px;
 }
-h1 { display: inline; }
+h1 { display: inline;}
 
-.ml { display: inline; }
-.ms { display: none; }
+.ml { display: inline;}
+.ms { display: none;}
 
-div#formulaButtonBar
-{
+div#formulaButtonBar {
   width: 100%;
   display: flex;
   padding-bottom: 24px;
 }
 
-div#formulaParamBar
-{
+div#formulaParamBar {
   width:100%;
   display:flex;
   align-items:center;
   padding-top:8px;
 }
 
-.uiFuncPanel
-{
+.uiFuncPanel {
   display:flex;
   flex-wrap:wrap;
   justify-content:flex-start;
@@ -48,16 +43,14 @@ div#formulaParamBar
   column-gap:12px;
 }
 
-.uiFuncGrid
-{
+.uiFuncGrid {
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr;
   align-items: start;
 }
 
 .uiFunc,
-.uiFuncB
-{
+.uiFuncB {
   box-sizing:border-box;
   margin:3px;
   border-color: #000000;
@@ -70,57 +63,52 @@ div#formulaParamBar
   background-color:var(--ctrlColor);
   user-select: none;
 }
-.uiFunc  {width:88px; }
-.uiFuncB {grid-column:auto/span 2; }
+.uiFunc  {width:88px;}
+.uiFuncB {grid-column:auto/span 2;}
 .uiFunc:hover,
-.uiFuncB:hover
-{
+.uiFuncB:hover {
   background-color: var(--ctrlColorHover);
 }
 
-.parts { display: grid; grid-template-columns: 1fr 1fr; padding-top:16px; column-gap:16px; }
+.parts { display: grid; grid-template-columns: 1fr 1fr; padding-top:16px; column-gap:16px;}
 .part  { box-sizing:border-box;}
 
 .guiWindow { background-color:#404040; padding:8px; border-radius:6px;}
 
-td { padding:0; border:0 }
-a { text-decoration:none; color: #ffb010; }
-a:hover { color: #ffffff; }
+td { padding:0; border:0}
+a { text-decoration:none; color: #ffb010;}
+a:hover { color: #ffffff;}
 
-.formulaSection
-{
+.formulaSection {
   width:100%;
   display:flex;
   padding-bottom:4px;
   align-items:center;
 }
 
-.userInput
-{
+.userInput {
   background-color: #202020;
   color: #ffffff;
   padding: 4px;
   font-size: 15px;
   border-radius:6px;
 }
-.formVis
-{
+.formVis {
   flex-shrink: 0;
   cursor: pointer;
   color: #808080;
 }
 
-.formVisDar1 { color:#ffc040; }
-.formVisDar2 { color:#ffffa0; }
-.formVisDar3 { color:#a0ffc0; }
-.formVisDar4 { color:#40c0ff; }
-.formVisDar5 { color:#d0a0ff; }
-.formVisDar6 { color:#ff80b0; }
+.formVisDar1 { color:#ffc040;}
+.formVisDar2 { color:#ffffa0;}
+.formVisDar3 { color:#a0ffc0;}
+.formVisDar4 { color:#40c0ff;}
+.formVisDar5 { color:#d0a0ff;}
+.formVisDar6 { color:#ff80b0;}
 
 .userInputButtonsBig,
 .userInputButtonsMedium,
-.userInputButtonsSmall
-{
+.userInputButtonsSmall {
   background-color: var(--ctrlColor);
   border-color: #000000;
   color:#ffffff;
@@ -130,25 +118,23 @@ a:hover { color: #ffffff; }
   border-radius:6px;
   user-select: none;
 }
-.userInputButtonsBig    { min-width: 76px; }
-.userInputButtonsMedium { min-width: 48px; }
-.userInputButtonsSmall  { min-width: 48px; }
+.userInputButtonsBig    { min-width: 76px;}
+.userInputButtonsMedium { min-width: 48px;}
+.userInputButtonsSmall  { min-width: 48px;}
 
 .userInputButtonsBig:hover,
 .userInputButtonsMedium:hover,
-.userInputButtonsSmall:hover
-{
+.userInputButtonsSmall:hover {
   background-color: var(--ctrlColorHover);
 }
 
-@media only screen and (max-width: 1024px)
-{
-  body{ padding:0px; }
-  .parts { display: grid; grid-template-columns: 1fr; padding-top:0px; column-gap:0px; }
-  .part  { box-sizing:border-box; padding-bottom:16px; }
-  .ml { display: none; }
-  .ms { display: inline; }
-  div#formulaButtonBar { padding-bottom: 12px; }
+@media only screen and (max-width: 1024px) {
+  body{ padding:0px;}
+  .parts { display: grid; grid-template-columns: 1fr; padding-top:0px; column-gap:0px;}
+  .part  { box-sizing:border-box; padding-bottom:16px;}
+  .ml { display: none;}
+  .ms { display: inline;}
+  div#formulaButtonBar { padding-bottom: 12px;}
   .uiFuncGrid { grid-template-columns: 1fr 1fr 1fr; width:100%;}
   .uiFunc  {width:auto;justify-self:stretch; }
   .guiWindow { border-radius:0px;}
