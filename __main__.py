@@ -37,7 +37,7 @@ class View(ui.View):
     self.close_btn = self.create_btn('iob:ios7_close_32', False)
     self.close_btn.action = (lambda sender: self.close())
     self.add_subview(self.close_btn)
-  
+
   def set_reload_btn(self):
     self.reload_btn = self.create_btn('iob:ios7_refresh_outline_32', True)
     self.reload_btn.action = (lambda sender: self.wv.reload())
