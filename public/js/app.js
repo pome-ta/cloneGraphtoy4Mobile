@@ -918,3 +918,16 @@ function Grapher() {
   return me;
 }
 
+
+function viewportHandler(event) {
+  document.documentElement.style.setProperty(
+      '--visualViewport-height',
+      `${visualViewport.height}px`
+    );
+  console.log(visualViewport.height);
+}
+
+
+document.addEventListener('DOMContentLoaded', viewportHandler);
+visualViewport.addEventListener('resize', viewportHandler);
+

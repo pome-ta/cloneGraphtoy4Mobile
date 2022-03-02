@@ -5,6 +5,7 @@
   --ctrlColorHover: #b08010;
   --code-font-family: monospace;
   --code-font-size: 0.8rem;
+  --visualViewport-height: 100vh;
 }
 
 body {
@@ -148,6 +149,7 @@ a:hover { color: #ffffff;}
 @media only screen and (max-width: 1024px) {
   body{
     padding:0px;
+    height: var(--visualViewport-height);
   }
   
   .parts {
@@ -155,21 +157,22 @@ a:hover { color: #ffffff;}
     grid-template-columns: 1fr;
     padding-top: 0px;
     column-gap: 0px;
-    /*height: 100vh;*/
+    height: var(--visualViewport-height);
   }
   
   .part {
     box-sizing: border-box;
     padding-bottom: 1rem;
+    background-color: transparent;
+    opacity: 0.5;
   }
   
   .sticky_canvas {
     /*height: 100vh;*/
-    /*position: sticky;*/
+    /*position: fixed;*/
+    position: sticky;
     top: 0;
-    z-index: 1;
-    background-color: #ffc040;
-    opacity: 0.5;
+    z-index: -1;
   }
   
   .ml { display: none; }

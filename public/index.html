@@ -18,19 +18,19 @@
   <script>
     let grapher = null;
 function myInit() {
-let args = window.location.href.slice(window.location.href.indexOf('?') + 1);
-//console.log(window.location.href);
-args = decodeURIComponent(args);
-args = args.split('&');
-grapher = Grapher();
-grapher.parseUrlFormulas(args);
-
+  let args = window.location.href.slice(window.location.href.indexOf('?') + 1);
+  //console.log(window.location.href);
+  args = decodeURIComponent(args);
+  args = args.split('&');
+  grapher = Grapher();
+  grapher.parseUrlFormulas(args);
 }
   </script>
 
 </head>
 
 <body onload="myInit();">
+
 <!-- --------------------------------------------------------------------------------- -->
 <!--
   <div class="ml">
@@ -57,7 +57,7 @@ grapher.parseUrlFormulas(args);
     -->
 
 
-    <canvas id="mainCanvas" style="width:100%;height:100%;" width="960" height="1280"></canvas>
+    <canvas id="mainCanvas" style="width:100%;height:100%;" width="480" height="480"></canvas>
 
     <!--
     <canvas id="mainCanvas" style="width:100%;height:auto;" width="720" height="540"></canvas>
