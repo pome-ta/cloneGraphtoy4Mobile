@@ -39,6 +39,10 @@ grapher.parseUrlFormulas(args);
 -->
 <!-- --------------------------------------------------------------------------------- -->
 
+<!--
+<canvas id="mainCanvas" style="width:100%;height:100%;" width="960" height="960"></canvas>
+-->
+
 <div class="parts">
 
 <div class="part">
@@ -52,8 +56,55 @@ grapher.parseUrlFormulas(args);
     </div>
     -->
 
-    <canvas id="mainCanvas" style="width:100%;height:auto;" width="720" height="540"></canvas>
 
+    <canvas id="mainCanvas" style="width:100%;height:100%;" width="960" height="960"></canvas>
+
+    <!--
+    <canvas id="mainCanvas" style="width:100%;height:auto;" width="720" height="540"></canvas>
+    -->
+
+    <!--
+    <div id="formulaParamBar">
+      <div id="myCoords" style="margin-right: auto;">(0.0, 0.0)</div>
+      <div id="myTime" style="width:102px;">t = 0.0</div>
+      <div class="userInputButtonsMedium" style="margin-right:12px" onclick="grapher.resetTime();"><img src="./rewind.png"/></div>
+      <div class="userInputButtonsMedium" onclick="grapher.togglePlay();"><img id="myPlay" src="./pause.png"/></div>
+    </div> --><!-- /.formulaParamBar -->
+  
+  </div> <!-- /.guiWindow -->
+</div> <!-- /.part -->
+
+<div class="part">
+  <div class="guiWindow">
+    <div class="formulaSection">
+      <div id="f1" class="formVis formVisDar1" onclick="grapher.toggleVisibility(1);">f<sub>1</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula1" id="formula1" value="" onchange="grapher.newFormula(1);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f2" class="formVis formVisDar2" onclick="grapher.toggleVisibility(2);">f<sub>2</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula2" id="formula2" value="" onchange="grapher.newFormula(2);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f3" class="formVis formVisDar3" onclick="grapher.toggleVisibility(3);">f<sub>3</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula3" id="formula3" value="" onchange="grapher.newFormula(3);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f4" class="formVis formVisDar4" onclick="grapher.toggleVisibility(4);">f<sub>4</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula4" id="formula4" value="" onchange="grapher.newFormula(4);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f5" class="formVis formVisDar5" onclick="grapher.toggleVisibility(5);">f<sub>5</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula5" id="formula5" value="" onchange="grapher.newFormula(5);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f6" class="formVis formVisDar6" onclick="grapher.toggleVisibility(6);">f<sub>6</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula6" id="formula6" value="" onchange="grapher.newFormula(6);grapher.draw();" />
+    </div>
+  </div> <!-- /.guiWindow -->
+  
+  <br>
+
+  <div class="guiWindow">
     <div id="formulaParamBar">
       <div id="myCoords" style="margin-right: auto;">(0.0, 0.0)</div>
       <div id="myTime" style="width:102px;">t = 0.0</div>
@@ -61,11 +112,6 @@ grapher.parseUrlFormulas(args);
       <div class="userInputButtonsMedium" onclick="grapher.togglePlay();"><img id="myPlay" src="./pause.png"/></div>
     </div> <!-- /.formulaParamBar -->
   
-  </div> <!-- /.guiWindow -->
-</div> <!-- /.part -->
-
-<div class="part">
-  <div class="guiWindow">
 
     <div id="formulaButtonBar">
       <div class="userInputButtonsSmall" style="margin-right:12px;margin-right: auto;" onclick="grapher.createLink();"><span class="ms">Link</span><span class="ml" title="Create an URL Link that you can share (already in clipboard) )">Create Link for Sharing</span></div> 
@@ -75,6 +121,8 @@ grapher.parseUrlFormulas(args);
       <div class="userInputButtonsSmall" onclick="grapher.sample3Formulas();"><span class="ms">Ex 2</span><span class="ml">Example 3</span></div> 
     </div> <!-- /.formulaButtonBar -->
 
+    <!-- xxx: 気軽に増やせるように -->
+    <!--
     <div class="formulaSection">
       <div id="f1" class="formVis formVisDar1" onclick="grapher.toggleVisibility(1);">f<sub>1</sub>(x,t) = &nbsp;</div>
       <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula1" id="formula1" value="" onchange="grapher.newFormula(1);grapher.draw();" />
@@ -99,9 +147,9 @@ grapher.parseUrlFormulas(args);
       <div id="f6" class="formVis formVisDar6" onclick="grapher.toggleVisibility(6);">f<sub>6</sub>(x,t) = &nbsp;</div>
       <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula6" id="formula6" value="" onchange="grapher.newFormula(6);grapher.draw();" />
     </div>
+    -->
 
   </div> <!-- /.guiWindow -->
-
 
   <!--
   <br>

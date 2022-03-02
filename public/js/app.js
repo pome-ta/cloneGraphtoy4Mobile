@@ -481,7 +481,7 @@ function Grapher() {
     const lowFormula = formula.toLowerCase();
     for(let n = 0; n < kBlackList.length; n++) {
       if(lowFormula.indexOf(kBlackList[n]) !== -1) {
-        console.log( "Forbidden word");
+        console.log("Forbidden word");
         return false;
       }
     }
