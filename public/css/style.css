@@ -155,12 +155,23 @@ a:hover { color: #ffffff;}
     grid-template-columns: 1fr;
     padding-top: 0px;
     column-gap: 0px;
+    /*height: 100vh;*/
   }
   
   .part {
     box-sizing: border-box;
-    padding-bottom: 16px;
+    padding-bottom: 1rem;
   }
+  
+  .sticky_canvas {
+    /*height: 100vh;*/
+    /*position: sticky;*/
+    top: 0;
+    z-index: 1;
+    background-color: #ffc040;
+    opacity: 0.5;
+  }
+  
   .ml { display: none; }
   .ms { display: inline; }
   
