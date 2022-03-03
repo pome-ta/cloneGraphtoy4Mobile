@@ -78,8 +78,9 @@ if __name__ == '__main__':
   present_themed(
     view,
     theme_name='Theme09_Editorial',
-    style='fullscreen',
-    #style='panel',
+    #style='fullscreen',
+    #
+    style='panel',
     hide_title_bar=True,
     orientations=['portrait'])
 

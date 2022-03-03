@@ -147,10 +147,22 @@ a:hover { color: #ffffff;}
 
 /* xxx: ここがメイン感ある */
 @media only screen and (max-width: 1024px) {
+  html {
+    height: var(--visualViewport-height);
+    /*height: 200px*/
+  }
   body{
     padding:0px;
-    /*height: var(--visualViewport-height);*/
+    height: var(--visualViewport-height);
     /*height: 200px;*/
+    /*height: 100%;*/
+    background-color: #ff80b0;
+    opacity: 0.75;
+  }
+  .wrapper {
+    height: 100%;
+    background-color: #40c0ff;
+    opacity: 0.75;
   }
   
   .parts {
@@ -159,6 +171,8 @@ a:hover { color: #ffffff;}
     padding-top: 0px;
     column-gap: 0px;
     /*height: var(--visualViewport-height);*/
+    /*height: 100%;*/
+    /*height: 200px;*/
     
   }
   
