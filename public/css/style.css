@@ -149,7 +149,8 @@ a:hover { color: #ffffff;}
 @media only screen and (max-width: 1024px) {
   body{
     padding:0px;
-    height: var(--visualViewport-height);
+    /*height: var(--visualViewport-height);*/
+    /*height: 200px;*/
   }
   
   .parts {
@@ -157,7 +158,8 @@ a:hover { color: #ffffff;}
     grid-template-columns: 1fr;
     padding-top: 0px;
     column-gap: 0px;
-    height: var(--visualViewport-height);
+    /*height: var(--visualViewport-height);*/
+    
   }
   
   .part {
@@ -165,6 +167,9 @@ a:hover { color: #ffffff;}
     padding-bottom: 1rem;
     background-color: transparent;
     opacity: 0.5;
+    position: sticky;
+    bottom: 0;
+    /*pointer-events: none;*/
   }
   
   .sticky_canvas {
@@ -173,6 +178,7 @@ a:hover { color: #ffffff;}
     position: sticky;
     top: 0;
     z-index: -1;
+    pointer-events: auto;
   }
   
   .ml { display: none; }
@@ -198,6 +204,7 @@ a:hover { color: #ffffff;}
   }
   .guiWindow {
     border-radius: 0px;
+    /*pointer-events: auto;/
   }
 }
 

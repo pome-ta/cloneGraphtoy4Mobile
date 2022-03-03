@@ -28,7 +28,31 @@ class View(ui.View):
     _, _, btn_w, btn_h = self.close_btn.frame
     self.close_btn.x = (_w * .92) - (btn_w / 2)
     self.close_btn.y = (_h * .064) - (btn_h / 2)
+    #self.wv.height = self.height / 1.5
 
+  '''
+  def keyboard_frame_will_change(self, frame):
+    # Called when the on-screen keyboard appears/disappears
+    # Note: The frame is in screen coordinates.
+    #pass
+    print('    ', self.frame)
+    print('will', frame)
+    if (frame[3]):
+      self.wv.height = frame[2]
+    else:
+      self.wv.height = self.height
+    
+  def keyboard_frame_did_change(self, frame):
+    # Called when the on-screen keyboard appears/disappears
+    # Note: The frame is in screen coordinates.
+    #pass
+    print('    ', self.frame)
+    print(' did', frame)
+    if (frame[3]):
+      self.wv.height = frame[2]
+    else:
+      self.wv.height = self.height
+  '''
   def refresh_webview(self):
     self.wv.clear_cache()
     #self.wv.reload()

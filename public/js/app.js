@@ -924,7 +924,7 @@ function viewportHandler(event) {
       '--visualViewport-height',
       `${visualViewport.height}px`
     );
-  console.log(visualViewport.height);
+  //console.log(visualViewport.height);
 }
 
 
