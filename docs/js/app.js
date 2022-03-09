@@ -547,10 +547,7 @@ function Grapher() {
       // xxx: ここ何？
     }
 
-//console.log('ほげ');
-//console.log(mRa);
-//console.log(mYres);
-//console.log(mXres);
+
 mRa = 4.4;
     const rx = mRa;
     const ry = mRa * mYres / mXres;
