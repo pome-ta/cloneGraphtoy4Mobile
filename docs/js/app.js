@@ -547,6 +547,11 @@ function Grapher() {
       // xxx: ここ何？
     }
 
+//console.log('ほげ');
+//console.log(mRa);
+//console.log(mYres);
+//console.log(mXres);
+mRa = 4.4;
     const rx = mRa;
     const ry = mRa * mYres / mXres;
     const minx = mCx - rx;
@@ -750,8 +755,8 @@ function Grapher() {
       if(i === 4) uiFormula.value = "(t + floor(x-t))/2 - 5";
       if(i === 5) uiFormula.value = "sin(f5(x,t)) - 5";
       */
-      if(i === 0) uiFormula.value = "sin(440.0 * x * PI * 2.0)";
-      if(i === 1) uiFormula.value = "sin(PI * x / 2.0)";
+      if(i === 0) uiFormula.value = "sin(440.0*(x+t)*PI *2.0)";
+      if(i === 1) uiFormula.value = "sin(PI*(x+t)/2.0)";
       if(i === 2) uiFormula.value = "1.0 - pow(abs(f2(x, t)), 0.5)";
       if(i === 3) uiFormula.value = "1.0 - pow(max(0.0, abs(f2(x, t)) * 2.0 - 1.0), 3.5)";
       if(i === 4) uiFormula.value = "f1(x, t) * f3(x, t)";

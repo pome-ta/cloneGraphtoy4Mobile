@@ -182,7 +182,6 @@ a:hover { color: #ffffff;}
     /*position: fixed;*/
     position: sticky;
     top: var(--offset-top);
-    /*top: 0;*/
     z-index: -1;
     pointer-events: auto;
   }
