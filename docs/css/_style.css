@@ -6,6 +6,7 @@
   --code-font-family: monospace;
   --code-font-size: 0.8rem;
   --visualViewport-height: 100vh;
+  --offset-top: 0;
 }
 
 body {
@@ -156,8 +157,8 @@ a:hover { color: #ffffff;}
     height: var(--visualViewport-height);
     /*height: 200px;*/
     /*height: 100%;*/
-    background-color: #ff80b0;
-    opacity: 0.75;
+    /*background-color: #ff80b0;
+    opacity: 0.75;*/
   }
   .wrapper {
     height: 100%;
@@ -176,6 +177,16 @@ a:hover { color: #ffffff;}
     
   }
   
+  .sticky_canvas {
+    /*height: 100vh;*/
+    /*position: fixed;*/
+    position: sticky;
+    top: var(--offset-top);
+    /*top: 0;*/
+    z-index: -1;
+    pointer-events: auto;
+  }
+  
   .part {
     box-sizing: border-box;
     padding-bottom: 1rem;
@@ -184,15 +195,6 @@ a:hover { color: #ffffff;}
     position: sticky;
     bottom: 0;
     /*pointer-events: none;*/
-  }
-  
-  .sticky_canvas {
-    /*height: 100vh;*/
-    /*position: fixed;*/
-    position: sticky;
-    top: 0;
-    z-index: -1;
-    pointer-events: auto;
   }
   
   .ml { display: none; }

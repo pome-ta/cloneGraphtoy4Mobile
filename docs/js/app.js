@@ -919,7 +919,20 @@ function Grapher() {
 }
 
 
+
 function viewportHandler(event) {
+  let offsetTop = 0;
+  const canvasWrapper = document.querySelector('.sticky_canvas');
+  const canvasWrapper_top = canvasWrapper.getBoundingClientRect().top;
+  if (0 < canvasWrapper_top) {
+    offsetTop = 0;
+  } else {
+    offsetTop = -(canvasWrapper_top);
+  }
+  document.documentElement.style.setProperty(
+      '--offset-top',
+      `${offsetTop}px`
+    );
   document.documentElement.style.setProperty(
       '--visualViewport-height',
       `${visualViewport.height}px`
@@ -931,3 +944,4 @@ function viewportHandler(event) {
 document.addEventListener('DOMContentLoaded', viewportHandler);
 visualViewport.addEventListener('resize', viewportHandler);
 
+window.addEventListener('scroll', viewportHandler);
