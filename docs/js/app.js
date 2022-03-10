@@ -759,97 +759,88 @@ mRa = 4.4;
       if(i === 4) uiFormula.value = "f1(x, t) * f3(x, t)";
       if(i === 5) uiFormula.value = "f1(x, t) * f4(x, t)";
       
-      me.newFormula( (i+1) );
-      iSetVisibility( (i+1), (i!=4) );
+      me.newFormula((i + 1));
+      iSetVisibility((i + 1), (i !== 4));
     }
     iResetCoords();
-    if( mPaused ) iDraw();
+    if(mPaused) iDraw();
   }
 
-  me.sample2Formulas = function()
-  {
-    for( let i=0; i<6; i++ )
-    {
-      const uiFormula = document.getElementById('formula'+(i+1));
-      if( i==0 ) uiFormula.value = "sqrt(8^2-x^2)";
-      if( i==1 ) uiFormula.value = "-f1(x,t)";
-      if( i==2 ) uiFormula.value = "7/2-sqrt(3^2-(abs(x)-3.5)^2)";
-      if( i==3 ) uiFormula.value = "7/2+sqrt(3^2-(abs(x)-3.5)^2)/2";
-      if( i==4 ) uiFormula.value = "3+sqrt(1-(abs(x+sin(4*t)/2)-3)^2)*2/3";
-      if( i==5 ) uiFormula.value = "-3-sqrt(5^2-x^2)*(1/4+pow(0.5+0.5*sin(2*PI*t),6)/10)";
-      me.newFormula( (i+1) );
-      iSetVisibility( (i+1), true );
+  me.sample2Formulas = function() {
+    for(let i = 0; i < 6; i++) {
+      const uiFormula = document.getElementById('formula' + (i + 1));
+      if(i === 0) uiFormula.value = "sqrt(8^2-x^2)";
+      if(i === 1) uiFormula.value = "-f1(x,t)";
+      if(i === 2) uiFormula.value = "7/2-sqrt(3^2-(abs(x)-3.5)^2)";
+      if(i === 3) uiFormula.value = "7/2+sqrt(3^2-(abs(x)-3.5)^2)/2";
+      if(i === 4) uiFormula.value = "3+sqrt(1-(abs(x+sin(4*t)/2)-3)^2)*2/3";
+      if(i === 5) uiFormula.value = "-3-sqrt(5^2-x^2)*(1/4+pow(0.5+0.5*sin(2*PI*t),6)/10)";
+      me.newFormula((i + 1));
+      iSetVisibility((i + 1), true);
     }
     iResetCoords();
-    if( mPaused ) iDraw();
+    if(mPaused) iDraw();
   }
 
-  me.sample3Formulas = function()
-  {
-    for( let i=0; i<6; i++ )
-    {
-      const uiFormula = document.getElementById('formula'+(i+1));
-      if( i==0 ) uiFormula.value = "2+2*sin(floor(x+t)*4321)";
-      if( i==1 ) uiFormula.value = "max(sqrt(8^2-x^2),f1(x,t))";
-      if( i==2 ) uiFormula.value = "-1";
-      if( i==3 ) uiFormula.value = "-2";
-      if( i==4 ) uiFormula.value = "-5";
-      if( i==5 ) uiFormula.value = "0";
-      me.newFormula( (i+1) );
-      iSetVisibility( (i+1), (i!=5) );
+  me.sample3Formulas = function() {
+    for(let i = 0; i < 6; i++) {
+      const uiFormula = document.getElementById('formula'+(i + 1));
+      if(i === 0) uiFormula.value = "2+2*sin(floor(x+t)*4321)";
+      if(i === 1) uiFormula.value = "max(sqrt(8^2-x^2),f1(x,t))";
+      if(i === 2) uiFormula.value = "-1";
+      if(i === 3) uiFormula.value = "-2";
+      if(i === 4) uiFormula.value = "-5";
+      if(i === 5) uiFormula.value = "0";
+      me.newFormula((i + 1));
+      iSetVisibility((i +1 ), (i !== 5));
     }
     iResetCoords();
-    if( mPaused ) iDraw();
+    if(mPaused) iDraw();
   }
 
-  me.resetTime  = function()
-  {
+  me.resetTime  = function() {
     mTimeMS = 0;
     mTimeS = 0.0;
     mStartMS = 0;
     mOffsetMS = 0;
-    if( mPaused )
-    {
+    if(mPaused) {
       iDraw();
       let eleTime = document.getElementById('myTime');
       eleTime.textContent = "t = " + mTimeS.toFixed(2);
     }
   }
 
-  me.togglePlay = function()
-  {
+  me.togglePlay = function() {
     mPaused = !mPaused;
 
     const elePlay = document.getElementById('myPlay');
     elePlay.src = (mPaused) ? "play.png" : "pause.png"
 
-    if( !mPaused )
-    {
+    if(!mPaused) {
       const eleTime = document.getElementById('myTime');
       mStartMS = 0;
       mOffsetMS = mTimeMS;
-      function update( time )
-      {
-        if( mStartMS==0 ) mStartMS = time;
+      function update(time) {
+        if(mStartMS === 0) mStartMS = time;
 
-        mTimeMS = mOffsetMS + (time-mStartMS);
+        mTimeMS = mOffsetMS + (time - mStartMS);
         mTimeS = mTimeMS / 1000.0;
         eleTime.textContent = "t = " + mTimeS.toFixed(2);
 
         iDraw();
-        if( !mPaused ) requestAnimationFrame(update);
+        if(!mPaused) requestAnimationFrame(update);
       }
       requestAnimationFrame(update);
     }
   }
 
-  me.inject = function(str)
-  {
+  me.inject = function(str) {
     const ele = mFocusFormula;
-    if( ele==null ) return;
+    if(ele === null) return;
     let eleName = ele.getAttribute("name");
-    if( eleName==null ) return;
-    if( !eleName.startsWith("formula") ) return;
+    
+    if(eleName === null) return;
+    if(!eleName.startsWith("formula")) return;
 
     const start = ele.selectionStart;
     const end = ele.selectionEnd;
@@ -859,55 +850,45 @@ mRa = 4.4;
     document.execCommand("insertText", false, str);
   }
 
-  me.newFormula = function( index )
-  {
+  me.newFormula = function(index) {
     const id = index - 1;
-    for( let i=id; i<6; i++ )
-    {
+    for(let i = id; i < 6; i++ ) {
       iCompile(i);
     }
   }
 
-  me.toggleTheme = function()
-  {
+  me.toggleTheme = function() {
     mTheme = 1 - mTheme;
     const eleTheme = document.getElementById("myTheme");
-    eleTheme.textContent = (mTheme==0)?"Dark":"Light";
-    for( let i=0; i<6; i++ )
-    { 
-      iApplyFormulaVisibilityColor( i+1 );
+    eleTheme.textContent = (mTheme === 0) ? "Dark" : "Light";
+    for(let i = 0; i < 6; i++){ 
+      iApplyFormulaVisibilityColor(i + 1);
     }
-    if( mPaused ) iDraw();
+    if(mPaused) iDraw();
   }
 
-  me.toggleVisibility = function(index)
-  {
+  me.toggleVisibility = function(index) {
     const id = index - 1;
     const vis = mFunctionVis[id];
-    iSetVisibility(index,!vis);
+    iSetVisibility(index, !vis);
   }
 
-  me.toggleShowAxes = function()
-  {
-    mShowAxes = (mShowAxes+1)%3;
+  me.toggleShowAxes = function() {
+    mShowAxes = (mShowAxes + 1) % 3;
     iApplyGrid(mShowAxes);
-    if( mPaused ) iDraw();
+    if(mPaused) iDraw();
   }
 
-  me.toggleRange = function()
-  {
-    mRangeType = (mRangeType+1)%3;
+  me.toggleRange = function() {
+    mRangeType = (mRangeType + 1) % 3;
     const ele = document.getElementById("myRange");
 
-    ele.textContent = (mRangeType==0)?"0..1":
-      (mRangeType==1)?"-1..1":
-      "Free";
+    ele.textContent = (mRangeType === 0) ? "0..1" : (mRangeType === 1) ? "-1..1" : "Free";
 
-    if( mPaused ) iDraw();
+    if(mPaused) iDraw();
   }
 
-  me.draw = function()
-  {
+  me.draw = function() {
     iDraw();
   }
 
