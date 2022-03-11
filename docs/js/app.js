@@ -273,17 +273,24 @@ function Grapher() {
 
   mCanvas.addEventListener("touchstart", function (e) {
     e.preventDefault();
-    if(mRangeType !== 2) return;
-    if(e.touches.length === 1) {
+console.log('--- start mMouseFunction ---');
+console.log('fnc: ' + mMouseFunction);
+console.log('--- start touches[0].client ---');
+console.log('length: ' + e.touches.length);
+
+    if (mRangeType !== 2) return;
+    if (e.touches.length === 1) {
       mMouseFunction = 1;
       mRefCx = mCx;
       mRefCy = mCy;
       mRefRa = mRa;
       mRefMouseX = e.changedTouches[0].clientX;
       mRefMouseY = e.changedTouches[0].clientY;
-    } else if(e.touches.length === 2 ) {
-      let d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
-                         e.touches[0].clientY - e.touches[1].clientY);
+    } else if (e.touches.length === 2 ) {
+      let d = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
       mMouseFunction = 2;
       mRefCx = mCx;
       mRefCy = mCy;
@@ -300,23 +307,32 @@ function Grapher() {
 
   mCanvas.addEventListener("touchmove", function (e) {
     e.preventDefault();
-    if(mRangeType !==2) return;
+    if (mRangeType !== 2) return;
     let touches = e.changedTouches;
+    
 
-    if(mMouseFunction ===1) {
+    if (mMouseFunction === 1) {
       let x = touches[0].clientX;
       let y = touches[0].clientY;
       let dpr = window.devicePixelRatio || 1;
       mCx = mRefCx - (x - mRefMouseX) * dpr * 2.0 * mRa / mXres;
       mCy = mRefCy + (y - mRefMouseY) * dpr * 2.0 * mRa / mXres;
-      if(mPaused) iDraw();
-    } else if(mMouseFunction ===2) {
-      let d = Math.hypot(touches[0].clientX - touches[1].clientX,
-                         touches[0].clientY - touches[1].clientY);
+      if (mPaused) iDraw();
+    } else if (mMouseFunction === 2) {
+console.log('--- move touchmove mMouseFunction ---');
+console.log('fnc: ' + mMouseFunction);
+console.log('--- move touches[0].client ---');
+console.log('length: ' + touches.length);
+console.log(touches[0].clientX);
+console.log(touches[0].clientY);
+      let d = Math.hypot(
+        touches[0].clientX - touches[1].clientX,
+        touches[0].clientY - touches[1].clientY
+      );
       let scale = Math.pow(0.99, d - mRefMouseX);
       mRa = mRefRa * scale;
 
-      if( mPaused ) iDraw();
+      if (mPaused) iDraw();
     }
   }, false);
 
@@ -352,7 +368,7 @@ function Grapher() {
     const id = index - 1;
     const ele = document.getElementById(`f${index}`);
     const vis = mFunctionVis[id];
-    if(vis === true) {
+    if (vis === true) {
       ele.classList.add('formVisDar' + index);
     } else {
       ele.classList.remove('formVisDar' + index); 
@@ -367,30 +383,30 @@ function Grapher() {
     mFunctionFun[id] = null;
     uiFormula.style.borderColor = 'transparent';
 
-    if( strFormula==null ) return;
-    if( strFormula=='' ) return;
+    if (strFormula === null) return;
+    if(strFormula === '') return;
 
     uiFormula.style.borderColor = '#ff0000';
-    if( iNotOnBlackList(strFormula) == false ) return;
+    if (iNotOnBlackList(strFormula) === false) return;
 
     let str = "with(Math){";
     // xxx: スイッチじゃだめ？
-    if(id >= 1) {
+    if (id >= 1) {
       str += "function f1(x,t){return (" + document.getElementById('formula1').value + ");}";
     }
 
-    if(id >= 2) {
+    if (id >= 2) {
       str += "function f2(x,t){return (" + document.getElementById('formula2').value + ");}";
     }
 
-    if(id >= 3) {
+    if (id >= 3) {
       str += "function f3(x,t){return (" + document.getElementById('formula3').value + ");}";
     }
 
-    if(id >= 4) {
+    if (id >= 4) {
       str += "function f4(x,t){return (" + document.getElementById('formula4').value + ");}";
     }
-    if(id >= 5) {
+    if (id >= 5) {
       str += "function f5(x,t){return (" + document.getElementById('formula5').value + ");}";
     }
 
@@ -455,11 +471,11 @@ function Grapher() {
 
   function iApplyGrid() {
     const ele = document.getElementById("myAxes");
-    if(mShowAxes === 0) {
+    if (mShowAxes === 0) {
       ele.textContent = "Grid Off";
-    } else if(mShowAxes === 1) {
+    } else if (mShowAxes === 1) {
       ele.textContent = "Grid Dec";
-    } else if(mShowAxes === 2) {
+    } else if (mShowAxes === 2) {
       ele.textContent = "Grid Bin";
     }
   }
@@ -468,19 +484,19 @@ function Grapher() {
     const id = index - 1;
     mFunctionVis[id] = vis;
     iApplyFormulaVisibilityColor(index, vis);
-    if( mPaused ) iDraw();
+    if (mPaused) iDraw();
   }
 
   function iNotOnBlackList(formula) {
-    if( formula.length > 256 ) {
+    if (formula.length > 256) {
       alert("Formula is too long...");
       return false;
     }
     // ripped from Ed Mackey
     const kBlackList = ["?", "=", "[", "]", "'", ";", "new", "ml", "$", ").", "alert", "ook", "ipt", "doc", "win", "set", "get", "tim", "net", "post", "black", "z", "if"];
     const lowFormula = formula.toLowerCase();
-    for(let n = 0; n < kBlackList.length; n++) {
-      if(lowFormula.indexOf(kBlackList[n]) !== -1) {
+    for (let n = 0; n < kBlackList.length; n++) {
+      if (lowFormula.indexOf(kBlackList[n]) !== -1) {
         console.log("Forbidden word");
         return false;
       }
@@ -513,9 +529,9 @@ function Grapher() {
       }
 
       let badNum = isNaN(y) || (y==Number.NEGATIVE_INFINITY) || (y === Number.POSITIVE_INFINITY) || (Math.abs(y) > 1e9);
-      if(!badNum) {
+      if (!badNum) {
         let j = mYres * (0.5 + 0.5 * (mCy - y) / ry);
-        if(oldBadNum) {
+        if (oldBadNum) {
           mContext.moveTo(i, j);
         } else {
           mContext.lineTo(i, j);
@@ -531,15 +547,15 @@ function Grapher() {
 
   function iResize(e) {
     iAdjustCanvas();
-    if(mPaused) iDraw();
+    if (mPaused) iDraw();
   }
 
   function iDraw() {
-    if( mRangeType === 0) {
+    if (mRangeType === 0) {
       mCx = 0.5;
       mCy = 0.5;
       mRa = 0.5 * mXres / mYres;
-    } else if(mRangeType === 1) {
+    } else if (mRangeType === 1) {
       mCx = 0.0;
       mCy = 0.0;
       mRa = 1.0 * mXres / mYres;
@@ -564,14 +580,14 @@ mRa = 4.4;
     ctx.fillStyle = theme.mBackground;
     ctx.fillRect(0, 0, mXres, mYres);
 
-    if(mRangeType === 0 || mRangeType === 1) {
+    if (mRangeType === 0 || mRangeType === 1) {
       ctx.fillStyle = theme.mBackgroundOut;
       let ww = (mXres - mYres) / 2;
       ctx.fillRect(0, 0, ww, mYres);
       ctx.fillRect(mXres - 1 - ww, 0, ww, mYres);
     }
 
-    if(mShowAxes !== 0) {
+    if (mShowAxes !== 0) {
       const devicePixelRatio = window.devicePixelRatio || 1;
       const fontSize = 10 * devicePixelRatio;
       ctx.lineWidth = 1.0;
@@ -579,9 +595,9 @@ mRa = 4.4;
 
       const sep = (mShowAxes ===1) ? 5.0 : 4.0;
       let n = -1 + Math.floor(Math.log(mXres / (rx * 2.0)) / Math.log(sep));
-      if(n < 0) {
+      if (n < 0) {
         n = 0;
-      } else if(n > 100) {
+      } else if (n > 100) {
         n = 100;
       }
 
@@ -611,7 +627,7 @@ mRa = 4.4;
         }
         ctx.stroke(); 
 
-        if(off === 0) {
+        if (off === 0) {
           ctx.fillStyle = theme.mText;
           for(let i = iax; i <= ibx; i++) {
             let x = i * ste;
@@ -647,11 +663,11 @@ mRa = 4.4;
       const uiFormula = document.getElementById('formula' + (1 + i));
       const strFormula = uiFormula.value;
 
-      if(strFormula === null) { continue; }
-      if(strFormula === '') { continue; }
-      if(iNotOnBlackList(strFormula) === false) continue;
+      if (strFormula === null) { continue; }
+      if (strFormula === '') { continue; }
+      if (iNotOnBlackList(strFormula) === false) continue;
 
-      if(mFunctionVis[i]) {
+      if (mFunctionVis[i]) {
         iDrawGraph(i, theme.mGraphs[i]);
       }
     }
@@ -665,7 +681,7 @@ mRa = 4.4;
       const uiFormula = document.getElementById('formula' + (i + 1));
       uiFormula.value = "";
       let vis = false;
-      if(i === 0) {
+      if (i === 0) {
         uiFormula.value = "x";
         vis = true;
       } 
@@ -673,7 +689,7 @@ mRa = 4.4;
       iSetVisibility((i + 1), vis);
     }
     iResetCoords();
-    if(mPaused) iDraw();
+    if (mPaused) iDraw();
   }
 
   me.createLink = function() {
@@ -733,8 +749,8 @@ mRa = 4.4;
         }
       }
     }
-    if(thereAreArgs) {
-      if(mPaused) iDraw();
+    if (thereAreArgs) {
+      if (mPaused) iDraw();
     } else {
       me.sample1Formulas();
     }
@@ -752,45 +768,45 @@ mRa = 4.4;
       if(i === 4) uiFormula.value = "(t + floor(x-t))/2 - 5";
       if(i === 5) uiFormula.value = "sin(f5(x,t)) - 5";
       */
-      if(i === 0) uiFormula.value = "sin(440.0*(x+t)*PI *2.0)";
-      if(i === 1) uiFormula.value = "sin(PI*(x+t)/2.0)";
-      if(i === 2) uiFormula.value = "1.0 - pow(abs(f2(x, t)), 0.5)";
-      if(i === 3) uiFormula.value = "1.0 - pow(max(0.0, abs(f2(x, t)) * 2.0 - 1.0), 3.5)";
-      if(i === 4) uiFormula.value = "f1(x, t) * f3(x, t)";
-      if(i === 5) uiFormula.value = "f1(x, t) * f4(x, t)";
+      if (i === 0) uiFormula.value = "sin(440.0*(x+t)*PI *2.0)";
+      if (i === 1) uiFormula.value = "sin(PI*(x+t)/2.0)";
+      if (i === 2) uiFormula.value = "1.0 - pow(abs(f2(x, t)), 0.5)";
+      if (i === 3) uiFormula.value = "1.0 - pow(max(0.0, abs(f2(x, t)) * 2.0 - 1.0), 3.5)";
+      if (i === 4) uiFormula.value = "f1(x, t) * f3(x, t)";
+      if (i === 5) uiFormula.value = "f1(x, t) * f4(x, t)";
       
       me.newFormula((i + 1));
       iSetVisibility((i + 1), (i !== 4));
     }
     iResetCoords();
-    if(mPaused) iDraw();
+    if (mPaused) iDraw();
   }
 
   me.sample2Formulas = function() {
     for(let i = 0; i < 6; i++) {
       const uiFormula = document.getElementById('formula' + (i + 1));
-      if(i === 0) uiFormula.value = "sqrt(8^2-x^2)";
-      if(i === 1) uiFormula.value = "-f1(x,t)";
-      if(i === 2) uiFormula.value = "7/2-sqrt(3^2-(abs(x)-3.5)^2)";
-      if(i === 3) uiFormula.value = "7/2+sqrt(3^2-(abs(x)-3.5)^2)/2";
-      if(i === 4) uiFormula.value = "3+sqrt(1-(abs(x+sin(4*t)/2)-3)^2)*2/3";
-      if(i === 5) uiFormula.value = "-3-sqrt(5^2-x^2)*(1/4+pow(0.5+0.5*sin(2*PI*t),6)/10)";
+      if (i === 0) uiFormula.value = "sqrt(8^2-x^2)";
+      if (i === 1) uiFormula.value = "-f1(x,t)";
+      if (i === 2) uiFormula.value = "7/2-sqrt(3^2-(abs(x)-3.5)^2)";
+      if (i === 3) uiFormula.value = "7/2+sqrt(3^2-(abs(x)-3.5)^2)/2";
+      if (i === 4) uiFormula.value = "3+sqrt(1-(abs(x+sin(4*t)/2)-3)^2)*2/3";
+      if (i === 5) uiFormula.value = "-3-sqrt(5^2-x^2)*(1/4+pow(0.5+0.5*sin(2*PI*t),6)/10)";
       me.newFormula((i + 1));
       iSetVisibility((i + 1), true);
     }
     iResetCoords();
-    if(mPaused) iDraw();
+    if (mPaused) iDraw();
   }
 
   me.sample3Formulas = function() {
     for(let i = 0; i < 6; i++) {
       const uiFormula = document.getElementById('formula'+(i + 1));
-      if(i === 0) uiFormula.value = "2+2*sin(floor(x+t)*4321)";
-      if(i === 1) uiFormula.value = "max(sqrt(8^2-x^2),f1(x,t))";
-      if(i === 2) uiFormula.value = "-1";
-      if(i === 3) uiFormula.value = "-2";
-      if(i === 4) uiFormula.value = "-5";
-      if(i === 5) uiFormula.value = "0";
+      if (i === 0) uiFormula.value = "2+2*sin(floor(x+t)*4321)";
+      if (i === 1) uiFormula.value = "max(sqrt(8^2-x^2),f1(x,t))";
+      if (i === 2) uiFormula.value = "-1";
+      if (i === 3) uiFormula.value = "-2";
+      if (i === 4) uiFormula.value = "-5";
+      if (i === 5) uiFormula.value = "0";
       me.newFormula((i + 1));
       iSetVisibility((i +1 ), (i !== 5));
     }
@@ -803,7 +819,7 @@ mRa = 4.4;
     mTimeS = 0.0;
     mStartMS = 0;
     mOffsetMS = 0;
-    if(mPaused) {
+    if (mPaused) {
       iDraw();
       let eleTime = document.getElementById('myTime');
       eleTime.textContent = "t = " + mTimeS.toFixed(2);
@@ -816,12 +832,12 @@ mRa = 4.4;
     const elePlay = document.getElementById('myPlay');
     elePlay.src = (mPaused) ? "play.png" : "pause.png"
 
-    if(!mPaused) {
+    if (!mPaused) {
       const eleTime = document.getElementById('myTime');
       mStartMS = 0;
       mOffsetMS = mTimeMS;
       function update(time) {
-        if(mStartMS === 0) mStartMS = time;
+        if (mStartMS === 0) mStartMS = time;
 
         mTimeMS = mOffsetMS + (time - mStartMS);
         mTimeS = mTimeMS / 1000.0;
@@ -836,11 +852,11 @@ mRa = 4.4;
 
   me.inject = function(str) {
     const ele = mFocusFormula;
-    if(ele === null) return;
+    if (ele === null) return;
     let eleName = ele.getAttribute("name");
     
-    if(eleName === null) return;
-    if(!eleName.startsWith("formula")) return;
+    if (eleName === null) return;
+    if (!eleName.startsWith("formula")) return;
 
     const start = ele.selectionStart;
     const end = ele.selectionEnd;
@@ -864,7 +880,7 @@ mRa = 4.4;
     for(let i = 0; i < 6; i++){ 
       iApplyFormulaVisibilityColor(i + 1);
     }
-    if(mPaused) iDraw();
+    if (mPaused) iDraw();
   }
 
   me.toggleVisibility = function(index) {
@@ -876,7 +892,7 @@ mRa = 4.4;
   me.toggleShowAxes = function() {
     mShowAxes = (mShowAxes + 1) % 3;
     iApplyGrid(mShowAxes);
-    if(mPaused) iDraw();
+    if (mPaused) iDraw();
   }
 
   me.toggleRange = function() {
@@ -885,7 +901,7 @@ mRa = 4.4;
 
     ele.textContent = (mRangeType === 0) ? "0..1" : (mRangeType === 1) ? "-1..1" : "Free";
 
-    if(mPaused) iDraw();
+    if (mPaused) iDraw();
   }
 
   me.draw = function() {
