@@ -179,6 +179,7 @@ function Grapher() {
   let mCx = 0.0;
   let mCy = 0.0;
   let mRa = 12.0;
+  //let mRa 4.4;
   let mRefCx = -1.0;
   let mRefCy = -1.0;
   let mRefRa = -1.0;
@@ -273,10 +274,6 @@ function Grapher() {
 
   mCanvas.addEventListener("touchstart", function (e) {
     e.preventDefault();
-console.log('--- start mMouseFunction ---');
-console.log('fnc: ' + mMouseFunction);
-console.log('--- start touches[0].client ---');
-console.log('length: ' + e.touches.length);
 
     if (mRangeType !== 2) return;
     if (e.touches.length === 1) {
@@ -286,7 +283,7 @@ console.log('length: ' + e.touches.length);
       mRefRa = mRa;
       mRefMouseX = e.changedTouches[0].clientX;
       mRefMouseY = e.changedTouches[0].clientY;
-    } else if (e.touches.length === 2 ) {
+    } else if (e.touches.length === 2) {
       let d = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
@@ -298,6 +295,7 @@ console.log('length: ' + e.touches.length);
       mRefMouseX = d;
       mRefMouseY = 0;
     }
+
   }, false);
 
   mCanvas.addEventListener("touchend", function (e) {
@@ -310,7 +308,6 @@ console.log('length: ' + e.touches.length);
     if (mRangeType !== 2) return;
     let touches = e.changedTouches;
     
-
     if (mMouseFunction === 1) {
       let x = touches[0].clientX;
       let y = touches[0].clientY;
@@ -319,19 +316,15 @@ console.log('length: ' + e.touches.length);
       mCy = mRefCy + (y - mRefMouseY) * dpr * 2.0 * mRa / mXres;
       if (mPaused) iDraw();
     } else if (mMouseFunction === 2) {
-console.log('--- move touchmove mMouseFunction ---');
-console.log('fnc: ' + mMouseFunction);
-console.log('--- move touches[0].client ---');
-console.log('length: ' + touches.length);
-console.log(touches[0].clientX);
-console.log(touches[0].clientY);
-      let d = Math.hypot(
-        touches[0].clientX - touches[1].clientX,
-        touches[0].clientY - touches[1].clientY
-      );
-      let scale = Math.pow(0.99, d - mRefMouseX);
-      mRa = mRefRa * scale;
-
+      // xxx: 2で取れない時あるので無理やり
+      if (touches.length === 2) {
+        let d = Math.hypot(
+          touches[0].clientX - touches[1].clientX,
+          touches[0].clientY - touches[1].clientY
+        );
+        let scale = Math.pow(0.99, d - mRefMouseX);
+        mRa = mRefRa * scale;
+      }
       if (mPaused) iDraw();
     }
   }, false);
@@ -351,7 +344,8 @@ console.log(touches[0].clientY);
   function iResetCoords() {
     mCx = 0.0;
     mCy = 0.0;
-    mRa = 12.0;
+    //mRa = 12.0;
+    mRa = 4.4;
   }
 
   function iAdjustCanvas() {
@@ -564,7 +558,7 @@ console.log(touches[0].clientY);
     }
 
 
-mRa = 4.4;
+//mRa = 4.4;
     const rx = mRa;
     const ry = mRa * mYres / mXres;
     const minx = mCx - rx;
