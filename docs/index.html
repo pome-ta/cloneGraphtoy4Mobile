@@ -20,8 +20,20 @@
 function myInit() {
   let args = window.location.href.slice(window.location.href.indexOf('?') + 1);
   //console.log(window.location.href);
+  // https://graphtoy.com/?f1(x,t)=4%20+%204*smoothstep(0,0.7,sin(x+t))&v1=true&f2(x,t)=sqrt(9%5E2-x%5E2)&v2=true&f3(x,t)=3*sin(x)/x&v3=true&f4(x,t)=2*noise(3*x+t)+f3(x,t)&v4=true&f5(x,t)=(t%20+%20floor(x-t))/2%20-%205&v5=false&f6(x,t)=sin(f5(x,t))%20-%205&v6=true&grid=1&coords=0,0,12
+  console.log('window.location ---');
+  console.log(args);
+  
   args = decodeURIComponent(args);
+  
+  console.log('decodeURIComponent ---');
+  console.log(args);
+  
   args = args.split('&');
+  
+  console.log('args ---');
+  console.log(args);
+  
   grapher = Grapher();
   grapher.parseUrlFormulas(args);
 }
@@ -44,6 +56,45 @@ function myInit() {
 -->
 <div class="wrapper">
 <div class="parts">
+
+
+<div class="part">
+
+
+  <div class="guiWindow">
+    <div class="formulaSection">
+      <div id="f1" class="formVis formVisDar1" onclick="grapher.toggleVisibility(1);">f<sub>1</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula1" id="formula1" value="" onchange="grapher.newFormula(1);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f2" class="formVis formVisDar2" onclick="grapher.toggleVisibility(2);">f<sub>2</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula2" id="formula2" value="" onchange="grapher.newFormula(2);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f3" class="formVis formVisDar3" onclick="grapher.toggleVisibility(3);">f<sub>3</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula3" id="formula3" value="" onchange="grapher.newFormula(3);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f4" class="formVis formVisDar4" onclick="grapher.toggleVisibility(4);">f<sub>4</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula4" id="formula4" value="" onchange="grapher.newFormula(4);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f5" class="formVis formVisDar5" onclick="grapher.toggleVisibility(5);">f<sub>5</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula5" id="formula5" value="" onchange="grapher.newFormula(5);grapher.draw();" />
+    </div>
+    <div class="formulaSection">
+      <div id="f6" class="formVis formVisDar6" onclick="grapher.toggleVisibility(6);">f<sub>6</sub>(x,t)=&nbsp;</div>
+      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula6" id="formula6" value="" onchange="grapher.newFormula(6);grapher.draw();" />
+    </div>
+  </div> <!-- /.guiWindow -->
+  
+
+    <!-- xxx: 気軽に増やせるように -->
+
+  </div> <!-- /.guiWindow -->
+
+
+</div> <!-- /.part -->
 
 <div class="part sticky_canvas">
   <div class="guiWindow" title="Pan: Left Mouse Button&#10;Zoom: Mouse Wheel, or Shift+Left Mouse Button">
@@ -75,34 +126,6 @@ function myInit() {
 </div> <!-- /.part -->
 
 <div class="part">
-  <div class="guiWindow">
-    <div class="formulaSection">
-      <div id="f1" class="formVis formVisDar1" onclick="grapher.toggleVisibility(1);">f<sub>1</sub>(x,t)=&nbsp;</div>
-      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula1" id="formula1" value="" onchange="grapher.newFormula(1);grapher.draw();" />
-    </div>
-    <div class="formulaSection">
-      <div id="f2" class="formVis formVisDar2" onclick="grapher.toggleVisibility(2);">f<sub>2</sub>(x,t)=&nbsp;</div>
-      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula2" id="formula2" value="" onchange="grapher.newFormula(2);grapher.draw();" />
-    </div>
-    <div class="formulaSection">
-      <div id="f3" class="formVis formVisDar3" onclick="grapher.toggleVisibility(3);">f<sub>3</sub>(x,t)=&nbsp;</div>
-      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula3" id="formula3" value="" onchange="grapher.newFormula(3);grapher.draw();" />
-    </div>
-    <div class="formulaSection">
-      <div id="f4" class="formVis formVisDar4" onclick="grapher.toggleVisibility(4);">f<sub>4</sub>(x,t)=&nbsp;</div>
-      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula4" id="formula4" value="" onchange="grapher.newFormula(4);grapher.draw();" />
-    </div>
-    <div class="formulaSection">
-      <div id="f5" class="formVis formVisDar5" onclick="grapher.toggleVisibility(5);">f<sub>5</sub>(x,t)=&nbsp;</div>
-      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula5" id="formula5" value="" onchange="grapher.newFormula(5);grapher.draw();" />
-    </div>
-    <div class="formulaSection">
-      <div id="f6" class="formVis formVisDar6" onclick="grapher.toggleVisibility(6);">f<sub>6</sub>(x,t)=&nbsp;</div>
-      <input type="text" autocorrect="off" autocapitalize="none" class="userInput" style="width:100%" name="formula6" id="formula6" value="" onchange="grapher.newFormula(6);grapher.draw();" />
-    </div>
-  </div> <!-- /.guiWindow -->
-  
-  <br>
 
   <div class="guiWindow">
     <div id="formulaParamBar">

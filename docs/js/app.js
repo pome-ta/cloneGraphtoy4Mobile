@@ -911,6 +911,37 @@ function Grapher() {
 }
 
 
+function inputBlur() {
+  document.documentElement.style.setProperty(
+      '--sticky_canvas-position', 'static'
+    );
+  document.documentElement.style.setProperty(
+      '--sticky_canvas-z-index', 0
+    );
+}
+
+function inputFocus() {
+  document.documentElement.style.setProperty(
+      '--sticky_canvas-position', 'absolute'
+    );
+  document.documentElement.style.setProperty(
+      '--sticky_canvas-z-index', -1
+    );
+}
+
+
+function inputtHandlerSetup() {
+  const inputs = document.querySelectorAll('input');
+  for (const input of inputs) {
+    //console.log(input);
+    input.onblur = inputBlur;
+    input.onfocus = inputFocus;
+    
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', inputtHandlerSetup);
 
 function viewportHandler(event) {
   let offsetTop = 0;
@@ -932,8 +963,13 @@ function viewportHandler(event) {
   //console.log(visualViewport.height);
 }
 
-
+/*
 document.addEventListener('DOMContentLoaded', viewportHandler);
 visualViewport.addEventListener('resize', viewportHandler);
 
 window.addEventListener('scroll', viewportHandler);
+*/
+
+
+
+
