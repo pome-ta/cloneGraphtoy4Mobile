@@ -36,13 +36,14 @@ f1(x,t)=4 + 4*smoothstep(0,0.7,sin(x+t))&v1=true&f2(x,t)=sqrt(9^2-x^2)&v2=true&f
 
 # Pythonista
 
+
 ```
 LOG: window.location ---
-LOG: file:///private/var/mobile/Containers/Shared/AppGroup/A2F05B95-E190-4D22-B466-3FDBABAAFCE1/File%20Provider%20Storage/Repositories/cloneGraphtoy4Mobile/docs/index.html
+LOG: file:///private/var/mobile/Containers/Shared/AppGroup/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX/File%20Provider%20Storage/Repositories/cloneGraphtoy4Mobile/docs/index.html
 LOG: decodeURIComponent ---
-LOG: file:///private/var/mobile/Containers/Shared/AppGroup/A2F05B95-E190-4D22-B466-3FDBABAAFCE1/File Provider Storage/Repositories/cloneGraphtoy4Mobile/docs/index.html
+LOG: file:///private/var/mobile/Containers/Shared/AppGroup/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX/File Provider Storage/Repositories/cloneGraphtoy4Mobile/docs/index.html
 LOG: args ---
-LOG: ['file:///private/var/mobile/Containers/Shared/AppGroup/A2F05B95-E190-4D22-B466-3FDBABAAFCE1/File Provider Storage/Repositories/cloneGraphtoy4Mobile/docs/index.html']
+LOG: ['file:///private/var/mobile/Containers/Shared/AppGroup/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX/File Provider Storage/Repositories/cloneGraphtoy4Mobile/docs/index.html']
 
 
 ```
