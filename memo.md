@@ -1,3 +1,10 @@
+# 📝 2022/03/13
+
+
+リンクでグラフ取得するやつ、`file:///` で分岐させる
+
+
+
 # 📝 2022/03/09
 
 [https://pome-ta.github.io/cloneGraphtoy4Mobile/](https://pome-ta.github.io/cloneGraphtoy4Mobile/)

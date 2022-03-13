@@ -464,6 +464,8 @@ function Grapher() {
 
   function iApplyGrid() {
     const ele = document.getElementById('myAxes');
+    if (!ele) return;
+    
     if (mShowAxes === 0) {
       ele.textContent = 'Grid Off';
     } else if (mShowAxes === 1) {
@@ -731,6 +733,7 @@ function Grapher() {
         let param = args[i].substring(5);
         mShowAxes = parseInt(param);
         iApplyGrid(mShowAxes);
+        
       } else if (args[i][0] === 'c' && args[i][1] === 'o' && args[i][2] == 'o' && args[i][3] === 'r' && args[i][4] === 'd' && args[i][5] === 's' && args[i][6] === '=') {
         let param = args[i].substring(7);
         let subargs = param.split(',');
