@@ -546,6 +546,8 @@ function Grapher() {
   }
 
   function iDraw() {
+    // todo: 0: 0..1, 1: -1..1, 2: free
+    // xxx: ↑ かな？
     if (mRangeType === 0) {
       mCx = 0.5;
       mCy = 0.5;
