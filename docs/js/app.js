@@ -407,10 +407,11 @@ function Grapher() {
 
     const kPHI = '(1.61803398874989484820)';
 
-    function iSubst(str, a, b) { return str.split(a).join(b); }
+    //function iSubst(str, a, b) { return str.split(a).join(b); }
+    const iSubst = (str, a, b) => str.split(a).join(b);
 
-    //str = str.replaceAll( '^', '**' );
-    //str = str.split('^').join('**');
+    //str = str.replaceAll( '^', '**' );//
+    //str = str.split('^').join('**');//
     str = iSubst(str, '^', '**');
     str = iSubst(str, '²', '**2'); // &#xB2;
     str = iSubst(str, '³', '**3'); // &#xB3;
@@ -747,6 +748,7 @@ function Grapher() {
         }
       }
     }
+    
     if (thereAreArgs) {
       if (mPaused) iDraw();
     } else {
