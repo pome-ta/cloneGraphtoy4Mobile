@@ -29,18 +29,18 @@ urlParameter.forEach((value, key) => {
   let args = window.location.href.slice(window.location.href.indexOf('?') + 1);
   //console.log(window.location.href);
   // https://graphtoy.com/?f1(x,t)=4%20+%204*smoothstep(0,0.7,sin(x+t))&v1=true&f2(x,t)=sqrt(9%5E2-x%5E2)&v2=true&f3(x,t)=3*sin(x)/x&v3=true&f4(x,t)=2*noise(3*x+t)+f3(x,t)&v4=true&f5(x,t)=(t%20+%20floor(x-t))/2%20-%205&v5=false&f6(x,t)=sin(f5(x,t))%20-%205&v6=true&grid=1&coords=0,0,12
-  console.log('window.location ---');
-  console.log(args);
+  //console.log('window.location ---');
+  //console.log(args);
   
   args = decodeURIComponent(args);
   
-  console.log('decodeURIComponent ---');
-  console.log(args);
+  //console.log('decodeURIComponent ---');
+  //console.log(args);
   
   args = args.split('&');
   
-  console.log('args ---');
-  console.log(args);
+  //console.log('args ---');
+  //console.log(args);
   
   grapher = Grapher();
   grapher.parseUrlFormulas(args);
