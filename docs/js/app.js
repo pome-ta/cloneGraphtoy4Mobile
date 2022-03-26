@@ -404,10 +404,12 @@ function Grapher() {
     }
 
     str = str + 'return(' + strFormula + ');}';
+    console.log(`prestr: ${str}`);
 
     const kPHI = '(1.61803398874989484820)';
 
     //function iSubst(str, a, b) { return str.split(a).join(b); }
+    // todo: 演算子の読み替え
     const iSubst = (str, a, b) => str.split(a).join(b);
 
     //str = str.replaceAll( '^', '**' );//
@@ -448,6 +450,7 @@ function Grapher() {
     str = iSubst(str, '⅞', '(7/8)'); // &#x215E;
     str = iSubst(str, '⅑', '(1/9)'); // &#x2151;
     str = iSubst(str, '⅒', '(1/10)'); // &#x2152;
+    console.log(`iSubst: ${str}`);
 
     let fnFormula = null;
 
