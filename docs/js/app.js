@@ -344,7 +344,7 @@ function Grapher() {
     mCx = 0.0;
     mCy = 0.0;
     //mRa = 12.0;
-    mRa = 4.4;
+    mRa = 4.2;
   }
 
   function iAdjustCanvas() {
@@ -453,7 +453,7 @@ function Grapher() {
     str = iSubst(str, '⅒', '(1/10)'); // &#x2152;
     
     console.log(`iSubst: ${str}`);
-    console.log('');
+    console.log('--- --- ---');
 
     let fnFormula = null;
 
@@ -515,6 +515,8 @@ function Grapher() {
     let success = true;
 
     const formula = mFunctionFun[id];
+    //console.log('formula');
+    //console.log(formula);
     const rx = mRa;
     const ry = mRa * mYres / mXres;
     const t = mTimeS;
@@ -553,6 +555,7 @@ function Grapher() {
   }
 
   function iDraw() {
+    // todo: 見せる範囲設定
     // todo: 0: 0..1, 1: -1..1, 2: free
     // xxx: ↑ かな？
     if (mRangeType === 0) {
@@ -580,6 +583,7 @@ function Grapher() {
 
     // axes
     const ctx = mContext;
+    // todo: matrix 設定
     ctx.setTransform(1.0, 0.0, 0.0, 1, 0, 0.5, 0.5);
     ctx.fillStyle = theme.mBackground;
     ctx.fillRect(0, 0, mXres, mYres);
@@ -598,18 +602,28 @@ function Grapher() {
       ctx.font = fontSize.toFixed(0) + 'px arial';
 
       const sep = (mShowAxes === 1) ? 5.0 : 4.0;
+      console.log('--- sep');
+      console.log(sep);
+      
       let n = -1 + Math.floor(Math.log(mXres / (rx * 2.0)) / Math.log(sep));
+      console.log(rx);
+      console.log(n);
+      
       if (n < 0) {
         n = 0;
       } else if (n > 100) {
         n = 100;
       }
+      //n = (n < 0) ? 0 : (n > 100) ? 100 : n ;
+      
 
 
       function drawGrid(off, color) {
         ctx.strokeStyle = color;
 
         let ste = Math.pow(sep, off + Math.floor(Math.log(rx) / Math.log(sep)));
+        //console.log('--- ste');
+        //console.log(ste);
 
         const iax = Math.floor(minx / ste);
         const ibx = Math.floor(maxx / ste);
@@ -672,6 +686,8 @@ function Grapher() {
       if (iNotOnBlackList(strFormula) === false) continue;
 
       if (mFunctionVis[i]) {
+        //console.log('mFunctionVis');
+        //console.log(i);
         iDrawGraph(i, theme.mGraphs[i]);
       }
     }
