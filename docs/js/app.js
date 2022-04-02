@@ -1,80 +1,46 @@
 'use strict';
+//import {stepNaN, clamp, saturate, remap, smoothstep, ssign, radians, degrees, inversesqrt, rsqrt, rcbrt, rcp, fma, step, mix, lerp, over, tri, sqr, fract, exp2, exp10, mod, cellnoise, voronoi, noise} from './glslFuncs.js'
 
 //=== utils =====================================================
-function stepNaN(a, x) {
-  return (Number.isNaN(x) || Number.isNaN(a) || x > a) ? x : Number.NaN;
-}
-function clamp(x, a, b) {
-  if (x < a) return a;
-  if (x > b) return b;
-  return x;
-}
+const stepNaN = (a, x) => (Number.isNaN(x) || Number.isNaN(a) || x > a) ? x : Number.NaN;
 
-function saturate(x) {
-  return clamp(x, 0.0, 1.0);
-}
+const clamp = (x, a, b) => (x < a) ? a : (x > b) ? b : x;
 
-function remap(a, b, x, c, d) {
+const saturate = x => clamp(x, 0.0, 1.0);
+
+const remap = (a, b, x, c, d) => {
   if (x < a) return c;
   if (x > b) return d;
   let y = (x - a) / (b - a);
   return c + (d - c) * y;
 }
-
-function smoothstep(a, b, x) {
+const smoothstep = (a, b, x) => {
   let y = saturate((x - a) / (b - a));
   return y * y * (3.0 - 2.0 * y);
 }
 
-function ssign(x) {
-  return (x >= 0.0) ? 1.0 : -1.0;
-}
+const ssign = x => (x >= 0.0) ? 1.0 : -1.0;
 
-function radians(degrees) {
-  return degrees * Math.PI / 180.0;
-}
+const radians = deg => deg * Math.PI / 180.0;
+const degrees = rad => rad * 180.0 / Math.PI;
 
-function degrees(radians) {
-  return radians * 180.0 / Math.PI;
-}
+const inversesqrt = x => 1.0 / Math.sqrt(x);
+const rsqrt = x => inversesqrt(x);
 
-function inversesqrt(x) {
-  return 1.0 / Math.sqrt(x);
-}
+const rcbrt = x => 1.0 / Math.cbrt(x);
+const rcp = x => 1.0 / x;
 
-function rsqrt(x) {
-  return inversesqrt(x);
-}
+const fma = (x, y, z) => x * y + z;
 
-function rcbrt(x) {
-  return 1.0 / Math.cbrt(x);
-}
+const step = (a, x) => (x < a) ? 0.0 : 1.0;
 
-function rcp(x) {
-  return 1.0 / x;
-}
+const mix = (a, b, x) => a + (b - a) * x;
+const lerp = (a, b, x) => mix(a, b, x);
 
-function fma(x, y, z) {
-  return x * y + z;
-}
+const over = (x, y) => 1.0 - (1.0 - x) * (1.0 - y);
 
-function step(a, x) {
-  return (x < a) ? 0.0 : 1.0;
-}
-
-function mix(a, b, x) {
-  return a + (b - a) * x;
-}
-
-function lerp(a, b, x) {
-  return mix(a, b, x);
-}
-
-function over(x, y) {
-  return 1.0 - (1.0 - x) * (1.0 - y);
-}
-
-function tri(a, x) {
+// xxx: あとで変数考える
+const tri = (a, x) => {
   x = x / (2.0 * Math.PI);
   x = x % 1.0;
   x = (x > 0.0) ? x : x + 1.0;
@@ -86,34 +52,21 @@ function tri(a, x) {
   return -1.0 + 2.0 * x;
 }
 
-function sqr(a, x) {
-  return (Math.sin(x) > a) ? 1.0 : -1.0;
-}
+const sqr = (a, x) => (Math.sin(x) > a) ? 1.0 : -1.0;
 
-function frac(x) {
-  return x - Math.floor(x);
-}
+const frac = x => x - Math.floor(x);
+const fract = x => frac(x);
 
-function fract(x) {
-  return frac(x);
-}
+const exp2 = x => pow(2.0, x);
+const exp10 = x => pow(10.0, x);
 
-function exp2(x) {
-  return pow(2.0, x);
-}
+const mod = (x, y) => x - y * Math.floor(x / y);
 
-function exp10(x) {
-  return pow(10.0, x);
-}
-
-function mod(x, y) {
-  return x - y * Math.floor(x / y);
-}
-
-function cellnoise(x) {
-  let n = Math.floor(x) | 0;
+const cellnoise = x => {
+  let n, m;
+  n = Math.floor(x) | 0;
   n = (n << 13) ^ n; n &= 0xffffffff;
-  let m = n;
+  m = n;
   n = n * 15731; n &= 0xffffffff;
   n = n * m; n &= 0xffffffff;
   n = n + 789221; n &= 0xffffffff;
@@ -123,19 +76,26 @@ function cellnoise(x) {
   return n / 65535.0;
 }
 
-function voronoi(x) {
+const voronoi = x => {
   const i = Math.floor(x);
   const f = x - i;
-  const x0 = cellnoise(i - 1); const d0 = Math.abs(f - (-1 + x0));
-  const x1 = cellnoise(i); const d1 = Math.abs(f - (x1));
-  const x2 = cellnoise(i + 1); const d2 = Math.abs(f - (1 + x2));
+  
+  const x0 = cellnoise(i - 1);
+  const d0 = Math.abs(f - (-1 + x0));
+  
+  const x1 = cellnoise(i);
+  const d1 = Math.abs(f - (x1));
+  
+  const x2 = cellnoise(i + 1);
+  const d2 = Math.abs(f - (1 + x2));
+  
   let r = d0;
   r = (d1 < r) ? d1 : r;
   r = (d2 < r) ? d2 : r;
   return r;
 }
 
-function noise(x) {
+const noise = x => {
   const i = Math.floor(x) | 0;
   const f = x - i;
   const w = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
@@ -143,6 +103,8 @@ function noise(x) {
   const b = (2.0 * cellnoise(i + 1) - 1.0) * (f - 1.0);
   return 2.0 * (a + (b - a) * w);
 }
+
+
 
 //=== grapher ===================================================
 function Grapher() {

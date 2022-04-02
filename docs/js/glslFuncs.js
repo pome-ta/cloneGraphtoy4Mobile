@@ -12,7 +12,6 @@ const remap = (a, b, x, c, d) => {
   let y = (x - a) / (b - a);
   return c + (d - c) * y;
 }
-
 const smoothstep = (a, b, x) => {
   let y = saturate((x - a) / (b - a));
   return y * y * (3.0 - 2.0 * y);
@@ -32,11 +31,11 @@ const rcp = x => 1.0 / x;
 const fma = (x, y, z) => x * y + z;
 
 const step = (a, x) => (x < a) ? 0.0 : 1.0;
+
 const mix = (a, b, x) => a + (b - a) * x;
 const lerp = (a, b, x) => mix(a, b, x);
 
 const over = (x, y) => 1.0 - (1.0 - x) * (1.0 - y);
-
 
 // xxx: あとで変数考える
 const tri = (a, x) => {
@@ -103,4 +102,7 @@ const noise = x => {
   return 2.0 * (a + (b - a) * w);
 }
 
+//export {stepNaN, clamp, saturate, remap, smoothstep, ssign, radians, degrees, inversesqrt, rsqrt, rcbrt, rcp, fma, step, mix, lerp, over, tri, sqr, fract, exp2, exp10, mod, cellnoise, voronoi, noise};
+
+export {stepNaN};
 
