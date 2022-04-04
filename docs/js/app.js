@@ -366,7 +366,7 @@ function Grapher() {
     }
 
     str = str + 'return(' + strFormula + ');}';
-    console.log(`prestr: ${str}`);
+    //console.log(`prestr: ${str}`);
 
     //             1.618033988749895 黄金比だった
     const kPHI = '(1.61803398874989484820)';
@@ -414,8 +414,8 @@ function Grapher() {
     str = iSubst(str, '⅑', '(1/9)'); // &#x2151;
     str = iSubst(str, '⅒', '(1/10)'); // &#x2152;
     
-    console.log(`iSubst: ${str}`);
-    console.log('--- --- ---');
+    //console.log(`iSubst: ${str}`);
+    //console.log('--- --- ---');
 
     let fnFormula = null;
 
