@@ -2,37 +2,38 @@
 //import {stepNaN, clamp, saturate, remap, smoothstep, ssign, radians, degrees, inversesqrt, rsqrt, rcbrt, rcp, fma, step, mix, lerp, over, tri, sqr, fract, exp2, exp10, mod, cellnoise, voronoi, noise} from './glslFuncs.js'
 
 //=== utils =====================================================
-const stepNaN = (a, x) => (Number.isNaN(x) || Number.isNaN(a) || x > a) ? x : Number.NaN;
+const stepNaN = (a, x) =>
+  Number.isNaN(x) || Number.isNaN(a) || x > a ? x : Number.NaN;
 
-const clamp = (x, a, b) => (x < a) ? a : (x > b) ? b : x;
+const clamp = (x, a, b) => (x < a ? a : x > b ? b : x);
 
-const saturate = x => clamp(x, 0.0, 1.0);
+const saturate = (x) => clamp(x, 0.0, 1.0);
 
 const remap = (a, b, x, c, d) => {
   if (x < a) return c;
   if (x > b) return d;
   let y = (x - a) / (b - a);
   return c + (d - c) * y;
-}
+};
 const smoothstep = (a, b, x) => {
   let y = saturate((x - a) / (b - a));
   return y * y * (3.0 - 2.0 * y);
-}
+};
 
-const ssign = x => (x >= 0.0) ? 1.0 : -1.0;
+const ssign = (x) => (x >= 0.0 ? 1.0 : -1.0);
 
-const radians = deg => deg * Math.PI / 180.0;
-const degrees = rad => rad * 180.0 / Math.PI;
+const radians = (deg) => (deg * Math.PI) / 180.0;
+const degrees = (rad) => (rad * 180.0) / Math.PI;
 
-const inversesqrt = x => 1.0 / Math.sqrt(x);
-const rsqrt = x => inversesqrt(x);
+const inversesqrt = (x) => 1.0 / Math.sqrt(x);
+const rsqrt = (x) => inversesqrt(x);
 
-const rcbrt = x => 1.0 / Math.cbrt(x);
-const rcp = x => 1.0 / x;
+const rcbrt = (x) => 1.0 / Math.cbrt(x);
+const rcp = (x) => 1.0 / x;
 
 const fma = (x, y, z) => x * y + z;
 
-const step = (a, x) => (x < a) ? 0.0 : 1.0;
+const step = (a, x) => (x < a ? 0.0 : 1.0);
 
 const mix = (a, b, x) => a + (b - a) * x;
 const lerp = (a, b, x) => mix(a, b, x);
@@ -43,99 +44,110 @@ const over = (x, y) => 1.0 - (1.0 - x) * (1.0 - y);
 const tri = (a, x) => {
   x = x / (2.0 * Math.PI);
   x = x % 1.0;
-  x = (x > 0.0) ? x : x + 1.0;
+  x = x > 0.0 ? x : x + 1.0;
   if (x < a) {
     x = x / a;
   } else {
     x = 1.0 - (x - a) / (1.0 - a);
   }
   return -1.0 + 2.0 * x;
-}
+};
 
-const sqr = (a, x) => (Math.sin(x) > a) ? 1.0 : -1.0;
+const sqr = (a, x) => (Math.sin(x) > a ? 1.0 : -1.0);
 
-const frac = x => x - Math.floor(x);
-const fract = x => frac(x);
+const frac = (x) => x - Math.floor(x);
+const fract = (x) => frac(x);
 
-const exp2 = x => pow(2.0, x);
-const exp10 = x => pow(10.0, x);
+const exp2 = (x) => pow(2.0, x);
+const exp10 = (x) => pow(10.0, x);
 
 const mod = (x, y) => x - y * Math.floor(x / y);
 
-const cellnoise = x => {
+const cellnoise = (x) => {
   let n, m;
   n = Math.floor(x) | 0;
-  n = (n << 13) ^ n; n &= 0xffffffff;
+  n = (n << 13) ^ n;
+  n &= 0xffffffff;
   m = n;
-  n = n * 15731; n &= 0xffffffff;
-  n = n * m; n &= 0xffffffff;
-  n = n + 789221; n &= 0xffffffff;
-  n = n * m; n &= 0xffffffff;
-  n = n + 1376312589; n &= 0xffffffff;
+  n = n * 15731;
+  n &= 0xffffffff;
+  n = n * m;
+  n &= 0xffffffff;
+  n = n + 789221;
+  n &= 0xffffffff;
+  n = n * m;
+  n &= 0xffffffff;
+  n = n + 1376312589;
+  n &= 0xffffffff;
   n = (n >> 14) & 65535;
   return n / 65535.0;
-}
+};
 
-const voronoi = x => {
+const voronoi = (x) => {
   const i = Math.floor(x);
   const f = x - i;
-  
+
   const x0 = cellnoise(i - 1);
   const d0 = Math.abs(f - (-1 + x0));
-  
+
   const x1 = cellnoise(i);
-  const d1 = Math.abs(f - (x1));
-  
+  const d1 = Math.abs(f - x1);
+
   const x2 = cellnoise(i + 1);
   const d2 = Math.abs(f - (1 + x2));
-  
-  let r = d0;
-  r = (d1 < r) ? d1 : r;
-  r = (d2 < r) ? d2 : r;
-  return r;
-}
 
-const noise = x => {
+  let r = d0;
+  r = d1 < r ? d1 : r;
+  r = d2 < r ? d2 : r;
+  return r;
+};
+
+const noise = (x) => {
   const i = Math.floor(x) | 0;
   const f = x - i;
   const w = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
   const a = (2.0 * cellnoise(i + 0) - 1.0) * (f + 0.0);
   const b = (2.0 * cellnoise(i + 1) - 1.0) * (f - 1.0);
   return 2.0 * (a + (b - a) * w);
-}
-
-
+};
 
 //=== grapher ===================================================
 function Grapher() {
   // --- private ----------------------------------------------
   const mCanvas = document.getElementById('mainCanvas');
   const mContext = mCanvas.getContext('2d');
-  const kTheme = [{
-    mBackground: '#202020',
-    mBackgroundOut: '#000000',
-    mText: '#B0B0B0',
-    mGrid: '#606060',
-    mGridThin: '#404040',
-    mGraphs: ['#ffc040',
-      '#ffffa0',
-      '#a0ffc0',
-      '#40c0ff',
-      '#d0a0ff',
-      '#ff80b0']
-  }, {
-    mBackground: '#FFFFFF',
-    mBackgroundOut: '#808080',
-    mText: '#000000',
-    mGrid: '#A0A0A0',
-    mGridThin: '#D0D0D0',
-    mGraphs: ['#ff8000',
-      '#ffe800',
-      '#40ff00',
-      '#1040ff',
-      '#ff10ff',
-      '#ff0000']
-  }];
+  const kTheme = [
+    {
+      mBackground: '#202020',
+      mBackgroundOut: '#000000',
+      mText: '#B0B0B0',
+      mGrid: '#606060',
+      mGridThin: '#404040',
+      mGraphs: [
+        '#ffc040',
+        '#ffffa0',
+        '#a0ffc0',
+        '#40c0ff',
+        '#d0a0ff',
+        '#ff80b0',
+      ],
+    },
+    {
+      mBackground: '#FFFFFF',
+      mBackgroundOut: '#808080',
+      mText: '#000000',
+      mGrid: '#A0A0A0',
+      mGridThin: '#D0D0D0',
+      mGraphs: [
+        '#ff8000',
+        '#ffe800',
+        '#40ff00',
+        '#1040ff',
+        '#ff10ff',
+        '#ff0000',
+      ],
+    },
+  ];
 
   let mMouseFunction = 0;
   let mCx = 0.0;
@@ -169,7 +181,7 @@ function Grapher() {
   function iMouseDown(e) {
     if (!e) e = window.event;
     if (mRangeType !== 2) return;
-    if ((e.button === 0) && (e.shiftKey === false)) {
+    if (e.button === 0 && e.shiftKey === false) {
       mMouseFunction = 1;
     } else {
       mMouseFunction = 2;
@@ -188,29 +200,30 @@ function Grapher() {
 
     if (mMouseFunction === 0) {
       const rx = mRa;
-      const ry = mRa * cyres / cxres;
-      const x = mCx + 2.0 * rx * ((e.offsetX / cxres) - 0.5);
-      const y = mCy - 2.0 * ry * ((e.offsetY / cyres) - 0.5);
+      const ry = (mRa * cyres) / cxres;
+      const x = mCx + 2.0 * rx * (e.offsetX / cxres - 0.5);
+      const y = mCy - 2.0 * ry * (e.offsetY / cyres - 0.5);
       const n = 1 + Math.floor(Math.log(cxres / (rx * 2.0)) / Math.log(10.0));
-      document.getElementById('myCoords').innerHTML = '(' + x.toFixed(n) + ', ' + y.toFixed(n) + ')';
+      document.getElementById('myCoords').innerHTML =
+        '(' + x.toFixed(n) + ', ' + y.toFixed(n) + ')';
     }
 
     if (mRangeType !== 2) return;
 
     if (mMouseFunction === 1) {
-      mCx = mRefCx - (e.offsetX - mRefMouseX) * 2.0 * mRa / cxres;
-      mCy = mRefCy + (e.offsetY - mRefMouseY) * 2.0 * mRa / cxres;
+      mCx = mRefCx - ((e.offsetX - mRefMouseX) * 2.0 * mRa) / cxres;
+      mCy = mRefCy + ((e.offsetY - mRefMouseY) * 2.0 * mRa) / cxres;
       if (mPaused) iDraw();
     } else if (mMouseFunction === 2) {
-      const scale = Math.pow(0.99, (e.offsetX - mRefMouseX));
+      const scale = Math.pow(0.99, e.offsetX - mRefMouseX);
       mRa = mRefRa * scale;
       if (scale < 1.0) {
         const cxres = mCanvas.offsetWidth;
         const cyres = mCanvas.offsetHeight;
         const rx = mRefRa;
-        const ry = mRefRa * cyres / cxres;
-        const x = mRefCx + 2.0 * rx * (((mRefMouseX) / cxres) - 0.5);
-        const y = mRefCy - 2.0 * ry * (((mRefMouseY) / cyres) - 0.5);
+        const ry = (mRefRa * cyres) / cxres;
+        const x = mRefCx + 2.0 * rx * (mRefMouseX / cxres - 0.5);
+        const y = mRefCy - 2.0 * ry * (mRefMouseY / cyres - 0.5);
         mCx = x + (mRefCx - x) * scale;
         mCy = y + (mRefCy - y) * scale;
       }
@@ -221,86 +234,112 @@ function Grapher() {
   function iMouseWheel(e) {
     if (!e) e = window.event;
     const sfactor = 1.1;
-    const scale = (e.deltaY < 0 || e.wheelDelta > 0) ? 1.0 / sfactor : sfactor;
+    const scale = e.deltaY < 0 || e.wheelDelta > 0 ? 1.0 / sfactor : sfactor;
     e.preventDefault();
     mRa = mRa * scale;
     if (mPaused) iDraw();
   }
 
   // xxx: モダンに書く
-  mCanvas.onmousedown = function (ev) { iMouseDown(ev); }
-  mCanvas.onmousemove = function (ev) { iMouseMove(ev); }
-  mCanvas.onmouseup = function (ev) { iMouseUp(ev); }
-  mCanvas.onmouseout = function (ev) { iMouseUp(ev); }
-  mCanvas.onwheel = function (ev) { iMouseWheel(ev); }
+  mCanvas.onmousedown = function (ev) {
+    iMouseDown(ev);
+  };
+  mCanvas.onmousemove = function (ev) {
+    iMouseMove(ev);
+  };
+  mCanvas.onmouseup = function (ev) {
+    iMouseUp(ev);
+  };
+  mCanvas.onmouseout = function (ev) {
+    iMouseUp(ev);
+  };
+  mCanvas.onwheel = function (ev) {
+    iMouseWheel(ev);
+  };
 
-  mCanvas.addEventListener('touchstart', function (e) {
-    e.preventDefault();
+  mCanvas.addEventListener(
+    'touchstart',
+    function (e) {
+      e.preventDefault();
 
-    if (mRangeType !== 2) return;
-    if (e.touches.length === 1) {
-      mMouseFunction = 1;
-      mRefCx = mCx;
-      mRefCy = mCy;
-      mRefRa = mRa;
-      mRefMouseX = e.changedTouches[0].clientX;
-      mRefMouseY = e.changedTouches[0].clientY;
-    } else if (e.touches.length === 2) {
-      let d = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-      mMouseFunction = 2;
-      mRefCx = mCx;
-      mRefCy = mCy;
-      mRefRa = mRa;
-      mRefMouseX = d;
-      mRefMouseY = 0;
-    }
-  }, false);
-
-  mCanvas.addEventListener('touchend', function (e) {
-    e.preventDefault();
-    mMouseFunction = 0;
-  }, false);
-
-  mCanvas.addEventListener('touchmove', function (e) {
-    e.preventDefault();
-    if (mRangeType !== 2) return;
-    let touches = e.changedTouches;
-
-    if (mMouseFunction === 1) {
-      let x = touches[0].clientX;
-      let y = touches[0].clientY;
-      let dpr = window.devicePixelRatio || 1;
-      mCx = mRefCx - (x - mRefMouseX) * dpr * 2.0 * mRa / mXres;
-      mCy = mRefCy + (y - mRefMouseY) * dpr * 2.0 * mRa / mXres;
-      if (mPaused) iDraw();
-    } else if (mMouseFunction === 2) {
-      // xxx: 2で取れない時あるので無理やり
-      if (touches.length === 2) {
+      if (mRangeType !== 2) return;
+      if (e.touches.length === 1) {
+        mMouseFunction = 1;
+        mRefCx = mCx;
+        mRefCy = mCy;
+        mRefRa = mRa;
+        mRefMouseX = e.changedTouches[0].clientX;
+        mRefMouseY = e.changedTouches[0].clientY;
+      } else if (e.touches.length === 2) {
         let d = Math.hypot(
-          touches[0].clientX - touches[1].clientX,
-          touches[0].clientY - touches[1].clientY
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
         );
-        let scale = Math.pow(0.99, d - mRefMouseX);
-        mRa = mRefRa * scale;
+        mMouseFunction = 2;
+        mRefCx = mCx;
+        mRefCy = mCy;
+        mRefRa = mRa;
+        mRefMouseX = d;
+        mRefMouseY = 0;
       }
-      if (mPaused) iDraw();
-    }
-  }, false);
+    },
+    false
+  );
+
+  mCanvas.addEventListener(
+    'touchend',
+    function (e) {
+      e.preventDefault();
+      mMouseFunction = 0;
+    },
+    false
+  );
+
+  mCanvas.addEventListener(
+    'touchmove',
+    function (e) {
+      e.preventDefault();
+      if (mRangeType !== 2) return;
+      let touches = e.changedTouches;
+
+      if (mMouseFunction === 1) {
+        let x = touches[0].clientX;
+        let y = touches[0].clientY;
+        let dpr = window.devicePixelRatio || 1;
+        mCx = mRefCx - ((x - mRefMouseX) * dpr * 2.0 * mRa) / mXres;
+        mCy = mRefCy + ((y - mRefMouseY) * dpr * 2.0 * mRa) / mXres;
+        if (mPaused) iDraw();
+      } else if (mMouseFunction === 2) {
+        // xxx: 2で取れない時あるので無理やり
+        if (touches.length === 2) {
+          let d = Math.hypot(
+            touches[0].clientX - touches[1].clientX,
+            touches[0].clientY - touches[1].clientY
+          );
+          let scale = Math.pow(0.99, d - mRefMouseX);
+          mRa = mRefRa * scale;
+        }
+        if (mPaused) iDraw();
+      }
+    },
+    false
+  );
 
   let eles = document.querySelectorAll('.uiFunc, .uiFuncB');
   for (let i = 0; i < eles.length; i++) {
     // xxx: モダンに書く
-    eles[i].addEventListener('mousedown',
+    eles[i].addEventListener(
+      'mousedown',
       function () {
         mFocusFormula = document.activeElement;
       },
-      false);
+      false
+    );
   }
 
-  window.onresize = function (ev) { iResize(ev); }
+  window.onresize = function (ev) {
+    iResize(ev);
+  };
 
   function iResetCoords() {
     mCx = 0.0;
@@ -347,22 +386,37 @@ function Grapher() {
     let str = 'with(Math){';
     // xxx: スイッチじゃだめ？
     if (id >= 1) {
-      str += 'function f1(x,t){return (' + document.getElementById('formula1').value + ');}';
+      str +=
+        'function f1(x,t){return (' +
+        document.getElementById('formula1').value +
+        ');}';
     }
 
     if (id >= 2) {
-      str += 'function f2(x,t){return (' + document.getElementById('formula2').value + ');}';
+      str +=
+        'function f2(x,t){return (' +
+        document.getElementById('formula2').value +
+        ');}';
     }
 
     if (id >= 3) {
-      str += 'function f3(x,t){return (' + document.getElementById('formula3').value + ');}';
+      str +=
+        'function f3(x,t){return (' +
+        document.getElementById('formula3').value +
+        ');}';
     }
 
     if (id >= 4) {
-      str += 'function f4(x,t){return (' + document.getElementById('formula4').value + ');}';
+      str +=
+        'function f4(x,t){return (' +
+        document.getElementById('formula4').value +
+        ');}';
     }
     if (id >= 5) {
-      str += 'function f5(x,t){return (' + document.getElementById('formula5').value + ');}';
+      str +=
+        'function f5(x,t){return (' +
+        document.getElementById('formula5').value +
+        ');}';
     }
 
     str = str + 'return(' + strFormula + ');}';
@@ -413,7 +467,7 @@ function Grapher() {
     str = iSubst(str, '⅞', '(7/8)'); // &#x215E;
     str = iSubst(str, '⅑', '(1/9)'); // &#x2151;
     str = iSubst(str, '⅒', '(1/10)'); // &#x2152;
-    
+
     //console.log(`iSubst: ${str}`);
     //console.log('--- --- ---');
 
@@ -421,11 +475,15 @@ function Grapher() {
 
     try {
       fnFormula = new Function('x,t', str);
-    } catch (err) { return; }
+    } catch (err) {
+      return;
+    }
 
     try {
       let y = fnFormula(0.1, 0.2);
-    } catch (err) { return; }
+    } catch (err) {
+      return;
+    }
 
     uiFormula.style.borderColor = 'transparent';
     mFunctionFun[id] = fnFormula;
@@ -434,7 +492,7 @@ function Grapher() {
   function iApplyGrid() {
     const ele = document.getElementById('myAxes');
     if (!ele) return;
-    
+
     if (mShowAxes === 0) {
       ele.textContent = 'Grid Off';
     } else if (mShowAxes === 1) {
@@ -457,7 +515,31 @@ function Grapher() {
       return false;
     }
     // ripped from Ed Mackey
-    const kBlackList = ['?', '=', '[', ']', `'`, ';', 'new', 'ml', '$', ').', 'alert', 'ook', 'ipt', 'doc', 'win', 'set', 'get', 'tim', 'net', 'post', 'black', 'z', 'if'];
+    const kBlackList = [
+      '?',
+      '=',
+      '[',
+      ']',
+      `'`,
+      ';',
+      'new',
+      'ml',
+      '$',
+      ').',
+      'alert',
+      'ook',
+      'ipt',
+      'doc',
+      'win',
+      'set',
+      'get',
+      'tim',
+      'net',
+      'post',
+      'black',
+      'z',
+      'if',
+    ];
     const lowFormula = formula.toLowerCase();
     for (let n = 0; n < kBlackList.length; n++) {
       if (lowFormula.indexOf(kBlackList[n]) !== -1) {
@@ -470,7 +552,7 @@ function Grapher() {
 
   function iDrawGraph(id, mycolor) {
     mContext.strokeStyle = mycolor;
-    mContext.lineWidth = (mTheme === 0) ? 2.0 : 3.0;
+    mContext.lineWidth = mTheme === 0 ? 2.0 : 3.0;
     mContext.fillStyle = mycolor;
 
     let oldBadNum = true;
@@ -480,12 +562,12 @@ function Grapher() {
     //console.log('formula');
     //console.log(formula);
     const rx = mRa;
-    const ry = mRa * mYres / mXres;
+    const ry = (mRa * mYres) / mXres;
     const t = mTimeS;
     mContext.beginPath();
     let oldy = 0.0;
     for (let i = 0; i < mXres; i++) {
-      const x = mCx + rx * (-1.0 + 2.0 * i / mXres);
+      const x = mCx + rx * (-1.0 + (2.0 * i) / mXres);
       let y = 0.0;
       try {
         y = formula(x, t);
@@ -494,9 +576,13 @@ function Grapher() {
         break;
       }
 
-      let badNum = isNaN(y) || (y == Number.NEGATIVE_INFINITY) || (y === Number.POSITIVE_INFINITY) || (Math.abs(y) > 1e9);
+      let badNum =
+        isNaN(y) ||
+        y == Number.NEGATIVE_INFINITY ||
+        y === Number.POSITIVE_INFINITY ||
+        Math.abs(y) > 1e9;
       if (!badNum) {
-        let j = mYres * (0.5 + 0.5 * (mCy - y) / ry);
+        let j = mYres * (0.5 + (0.5 * (mCy - y)) / ry);
         if (oldBadNum) {
           mContext.moveTo(i, j);
         } else {
@@ -523,19 +609,18 @@ function Grapher() {
     if (mRangeType === 0) {
       mCx = 0.5;
       mCy = 0.5;
-      mRa = 0.5 * mXres / mYres;
+      mRa = (0.5 * mXres) / mYres;
     } else if (mRangeType === 1) {
       mCx = 0.0;
       mCy = 0.0;
-      mRa = 1.0 * mXres / mYres;
+      mRa = (1.0 * mXres) / mYres;
     } else {
       // xxx: ここ何？
     }
 
-
     //mRa = 4.4;
     const rx = mRa;
-    const ry = mRa * mYres / mXres;
+    const ry = (mRa * mYres) / mXres;
     const minx = mCx - rx;
     const maxx = mCx + rx;
     const miny = mCy - ry;
@@ -563,22 +648,20 @@ function Grapher() {
       ctx.lineWidth = 1.0;
       ctx.font = fontSize.toFixed(0) + 'px arial';
 
-      const sep = (mShowAxes === 1) ? 5.0 : 4.0;
+      const sep = mShowAxes === 1 ? 5.0 : 4.0;
       console.log('--- sep');
       console.log(sep);
-      
+
       let n = -1 + Math.floor(Math.log(mXres / (rx * 2.0)) / Math.log(sep));
       console.log(rx);
       console.log(n);
-      
+
       if (n < 0) {
         n = 0;
       } else if (n > 100) {
         n = 100;
       }
       //n = (n < 0) ? 0 : (n > 100) ? 100 : n ;
-      
-
 
       function drawGrid(off, color) {
         ctx.strokeStyle = color;
@@ -623,7 +706,7 @@ function Grapher() {
       }
 
       drawGrid(-1, theme.mGridThin); // thin grid
-      drawGrid(0, theme.mGrid);     // coarse grid
+      drawGrid(0, theme.mGrid); // coarse grid
 
       // axis
       {
@@ -632,8 +715,10 @@ function Grapher() {
         ctx.strokeStyle = theme.mGrid;
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(xPos, 0); ctx.lineTo(xPos, mYres);
-        ctx.moveTo(0, yPos); ctx.lineTo(mXres, yPos);
+        ctx.moveTo(xPos, 0);
+        ctx.lineTo(xPos, mYres);
+        ctx.moveTo(0, yPos);
+        ctx.lineTo(mXres, yPos);
         ctx.stroke();
       }
     }
@@ -643,8 +728,12 @@ function Grapher() {
       const uiFormula = document.getElementById('formula' + (1 + i));
       const strFormula = uiFormula.value;
 
-      if (strFormula === null) { continue; }
-      if (strFormula === '') { continue; }
+      if (strFormula === null) {
+        continue;
+      }
+      if (strFormula === '') {
+        continue;
+      }
       if (iNotOnBlackList(strFormula) === false) continue;
 
       if (mFunctionVis[i]) {
@@ -667,12 +756,12 @@ function Grapher() {
         uiFormula.value = 'x';
         vis = true;
       }
-      me.newFormula((i + 1));
-      iSetVisibility((i + 1), vis);
+      me.newFormula(i + 1);
+      iSetVisibility(i + 1, vis);
     }
     iResetCoords();
     if (mPaused) iDraw();
-  }
+  };
 
   me.createLink = function () {
     let url = '';
@@ -680,9 +769,9 @@ function Grapher() {
       let id = i + 1;
       let uiFormula = document.getElementById('formula' + id);
 
-      url += (i === 0) ? '?' : '&';
+      url += i === 0 ? '?' : '&';
       url += 'f' + id + '(x,t)=' + encodeURI(uiFormula.value);
-      url += '&v' + id + '=' + ((mFunctionVis[i] === true) ? 'true' : 'false');
+      url += '&v' + id + '=' + (mFunctionVis[i] === true ? 'true' : 'false');
     }
     url += '&grid=' + mShowAxes;
     url += '&coords=' + mCx + ',' + mCy + ',' + mRa;
@@ -692,18 +781,30 @@ function Grapher() {
 
     if (navigator.clipboard) {
       navigator.clipboard.writeText(finalURL).then(
-        function () { window.location.replace(finalURL); },
-        function (err) { window.location.replace(finalURL); });
+        function () {
+          window.location.replace(finalURL);
+        },
+        function (err) {
+          window.location.replace(finalURL);
+        }
+      );
     } else {
       window.location.replace(finalURL);
     }
-  }
-
+  };
 
   me.parseUrlFormulas = function (args) {
     let thereAreArgs = false;
     for (let i = 0; i < args.length; i++) {
-      if (args[i][0] === 'f' && args[i][2] === '(' && args[i][3] === 'x' && args[i][4] === ',' && args[i][5] === 't' && args[i][6] === ')' && args[i][7] === '=') {
+      if (
+        args[i][0] === 'f' &&
+        args[i][2] === '(' &&
+        args[i][3] === 'x' &&
+        args[i][4] === ',' &&
+        args[i][5] === 't' &&
+        args[i][6] === ')' &&
+        args[i][7] === '='
+      ) {
         let id = args[i][1] - '0';
         let param = args[i].substring(8);
 
@@ -715,13 +816,26 @@ function Grapher() {
       } else if (args[i][0] === 'v' && args[i][2] === '=') {
         let id = args[i][1] - '0';
         let param = args[i].substring(3);
-        iSetVisibility(id, (param === 'true'));
-      } else if (args[i][0] === 'g' && args[i][1] === 'r' && args[i][2] === 'i' && args[i][3] === 'd' && args[i][4] === '=') {
+        iSetVisibility(id, param === 'true');
+      } else if (
+        args[i][0] === 'g' &&
+        args[i][1] === 'r' &&
+        args[i][2] === 'i' &&
+        args[i][3] === 'd' &&
+        args[i][4] === '='
+      ) {
         let param = args[i].substring(5);
         mShowAxes = parseInt(param);
         iApplyGrid(mShowAxes);
-        
-      } else if (args[i][0] === 'c' && args[i][1] === 'o' && args[i][2] == 'o' && args[i][3] === 'r' && args[i][4] === 'd' && args[i][5] === 's' && args[i][6] === '=') {
+      } else if (
+        args[i][0] === 'c' &&
+        args[i][1] === 'o' &&
+        args[i][2] == 'o' &&
+        args[i][3] === 'r' &&
+        args[i][4] === 'd' &&
+        args[i][5] === 's' &&
+        args[i][6] === '='
+      ) {
         let param = args[i].substring(7);
         let subargs = param.split(',');
         mCx = Number(subargs[0]);
@@ -732,13 +846,13 @@ function Grapher() {
         }
       }
     }
-    
+
     if (thereAreArgs) {
       if (mPaused) iDraw();
     } else {
       me.sample1Formulas();
     }
-  }
+  };
 
   me.sample1Formulas = function () {
     for (let i = 0; i < 6; i++) {
@@ -755,16 +869,17 @@ function Grapher() {
       if (i === 0) uiFormula.value = 'sin(440.0*(x+t)*PI *2.0)';
       if (i === 1) uiFormula.value = 'sin(PI*(x+t)/2.0)';
       if (i === 2) uiFormula.value = '1.0 - pow(abs(f2(x, t)), 0.5)';
-      if (i === 3) uiFormula.value = '1.0 - pow(max(0.0, abs(f2(x, t)) * 2.0 - 1.0), 3.5)';
+      if (i === 3)
+        uiFormula.value = '1.0 - pow(max(0.0, abs(f2(x, t)) * 2.0 - 1.0), 3.5)';
       if (i === 4) uiFormula.value = 'f1(x, t) * f3(x, t)';
       if (i === 5) uiFormula.value = 'f1(x, t) * f4(x, t)';
 
-      me.newFormula((i + 1));
-      iSetVisibility((i + 1), (i !== 4));
+      me.newFormula(i + 1);
+      iSetVisibility(i + 1, i !== 4);
     }
     iResetCoords();
     if (mPaused) iDraw();
-  }
+  };
 
   me.sample2Formulas = function () {
     for (let i = 0; i < 6; i++) {
@@ -774,13 +889,15 @@ function Grapher() {
       if (i === 2) uiFormula.value = '7/2-sqrt(3^2-(abs(x)-3.5)^2)';
       if (i === 3) uiFormula.value = '7/2+sqrt(3^2-(abs(x)-3.5)^2)/2';
       if (i === 4) uiFormula.value = '3+sqrt(1-(abs(x+sin(4*t)/2)-3)^2)*2/3';
-      if (i === 5) uiFormula.value = '-3-sqrt(5^2-x^2)*(1/4+pow(0.5+0.5*sin(2*PI*t),6)/10)';
-      me.newFormula((i + 1));
-      iSetVisibility((i + 1), true);
+      if (i === 5)
+        uiFormula.value =
+          '-3-sqrt(5^2-x^2)*(1/4+pow(0.5+0.5*sin(2*PI*t),6)/10)';
+      me.newFormula(i + 1);
+      iSetVisibility(i + 1, true);
     }
     iResetCoords();
     if (mPaused) iDraw();
-  }
+  };
 
   me.sample3Formulas = function () {
     for (let i = 0; i < 6; i++) {
@@ -791,12 +908,12 @@ function Grapher() {
       if (i === 3) uiFormula.value = '-2';
       if (i === 4) uiFormula.value = '-5';
       if (i === 5) uiFormula.value = '0';
-      me.newFormula((i + 1));
-      iSetVisibility((i + 1), (i !== 5));
+      me.newFormula(i + 1);
+      iSetVisibility(i + 1, i !== 5);
     }
     iResetCoords();
     if (mPaused) iDraw();
-  }
+  };
 
   me.resetTime = function () {
     mTimeMS = 0;
@@ -808,13 +925,13 @@ function Grapher() {
       let eleTime = document.getElementById('myTime');
       eleTime.textContent = 't = ' + mTimeS.toFixed(2);
     }
-  }
+  };
 
   me.togglePlay = function () {
     mPaused = !mPaused;
 
     const elePlay = document.getElementById('myPlay');
-    elePlay.src = (mPaused) ? 'play.png' : 'pause.png'
+    elePlay.src = mPaused ? 'play.png' : 'pause.png';
 
     if (!mPaused) {
       const eleTime = document.getElementById('myTime');
@@ -832,7 +949,7 @@ function Grapher() {
       }
       requestAnimationFrame(update);
     }
-  }
+  };
 
   me.inject = function (str) {
     const ele = mFocusFormula;
@@ -848,49 +965,50 @@ function Grapher() {
     //ele.setRangeText(str, start, end, 'end');
     ele.focus();
     document.execCommand('insertText', false, str);
-  }
+  };
 
   me.newFormula = function (index) {
     const id = index - 1;
     for (let i = id; i < 6; i++) {
       iCompile(i);
     }
-  }
+  };
 
   me.toggleTheme = function () {
     mTheme = 1 - mTheme;
     const eleTheme = document.getElementById('myTheme');
-    eleTheme.textContent = (mTheme === 0) ? 'Dark' : 'Light';
+    eleTheme.textContent = mTheme === 0 ? 'Dark' : 'Light';
     for (let i = 0; i < 6; i++) {
       iApplyFormulaVisibilityColor(i + 1);
     }
     if (mPaused) iDraw();
-  }
+  };
 
   me.toggleVisibility = function (index) {
     const id = index - 1;
     const vis = mFunctionVis[id];
     iSetVisibility(index, !vis);
-  }
+  };
 
   me.toggleShowAxes = function () {
     mShowAxes = (mShowAxes + 1) % 3;
     iApplyGrid(mShowAxes);
     if (mPaused) iDraw();
-  }
+  };
 
   me.toggleRange = function () {
     mRangeType = (mRangeType + 1) % 3;
     const ele = document.getElementById('myRange');
 
-    ele.textContent = (mRangeType === 0) ? '0..1' : (mRangeType === 1) ? '-1..1' : 'Free';
+    ele.textContent =
+      mRangeType === 0 ? '0..1' : mRangeType === 1 ? '-1..1' : 'Free';
 
     if (mPaused) iDraw();
-  }
+  };
 
   me.draw = function () {
     iDraw();
-  }
+  };
 
   //--- initialize ---
 
@@ -901,25 +1019,21 @@ function Grapher() {
   return me;
 }
 
-
 function inputBlur() {
   document.documentElement.style.setProperty(
-      '--sticky_canvas-position', 'static'
-    );
-  document.documentElement.style.setProperty(
-      '--sticky_canvas-z-index', 0
-    );
+    '--sticky_canvas-position',
+    'static'
+  );
+  document.documentElement.style.setProperty('--sticky_canvas-z-index', 0);
 }
 
 function inputFocus() {
   document.documentElement.style.setProperty(
-      '--sticky_canvas-position', 'absolute'
-    );
-  document.documentElement.style.setProperty(
-      '--sticky_canvas-z-index', -1
-    );
+    '--sticky_canvas-position',
+    'absolute'
+  );
+  document.documentElement.style.setProperty('--sticky_canvas-z-index', -1);
 }
-
 
 function inputtHandlerSetup() {
   const inputs = document.querySelectorAll('input');
@@ -927,10 +1041,8 @@ function inputtHandlerSetup() {
     //console.log(input);
     input.onblur = inputBlur;
     input.onfocus = inputFocus;
-    
   }
 }
-
 
 document.addEventListener('DOMContentLoaded', inputtHandlerSetup);
 
@@ -941,12 +1053,9 @@ function viewportHandler(event) {
   if (0 < canvasWrapper_top) {
     offsetTop = 0;
   } else {
-    offsetTop = -(canvasWrapper_top);
+    offsetTop = -canvasWrapper_top;
   }
-  document.documentElement.style.setProperty(
-    '--offset-top',
-    `${offsetTop}px`
-  );
+  document.documentElement.style.setProperty('--offset-top', `${offsetTop}px`);
   document.documentElement.style.setProperty(
     '--visualViewport-height',
     `${visualViewport.height}px`
@@ -960,7 +1069,3 @@ visualViewport.addEventListener('resize', viewportHandler);
 
 window.addEventListener('scroll', viewportHandler);
 */
-
-
-
-
