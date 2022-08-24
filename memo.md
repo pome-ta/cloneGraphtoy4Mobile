@@ -17,7 +17,7 @@ Pythonista のときはどのように分岐をさせようかな。。。
 
 [doxas / twigl](https://github.com/doxas/twigl) を参考に、パラメータ処理をしようとしている
 
-```
+``` .js
 /**
  * searchParams を取得する
  * @return {URLSearchParams}
@@ -33,7 +33,7 @@ function getParameter(){
 https://twigl.app/?ol=true&mode=0&source=precision%20highp%20float%3B%0Auniform%20vec2%20resolution%3B%0Auniform%20vec2%20mouse%3B%0Auniform%20float%20time%3B%0Auniform%20sampler2D%20backbuffer%3B%0Avoid%20main(){vec2%20r%3Dresolution,p%3D(gl_FragCoord.xy*2.-r)/min(r.x,r.y)%2Bmouse%3Bfor(int%20i%3D0%3Bi%3C8%3B%2B%2Bi){p.xy%3Dabs(p)/abs(dot(p,p))-vec2(.9%2Bcos(time*.2)*.4)%3B}gl_FragColor%3Dvec4(p.xxy,1)%3B}
 ```
 
-```
+``` .glsl
 precision highp float;
 uniform vec2 resolution;
 uniform vec2 mouse;
