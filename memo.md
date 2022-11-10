@@ -11,7 +11,7 @@ sound shader をやるにあたり、確認ついてに手直し
 
 # 📝 2022/03/14
 
-## HTML上の`onclick` 挙動
+## HTML 上の`onclick` 挙動
 
 js 上で書き換えた方が何かと良さそうな感じがあり
 めちゃくちゃ書き換えが面倒そうやな、、、
@@ -28,7 +28,7 @@ Pythonista のときはどのように分岐をさせようかな。。。
 
 [doxas / twigl](https://github.com/doxas/twigl) を参考に、パラメータ処理をしようとしている
 
-``` .js
+```.js
 /**
  * searchParams を取得する
  * @return {URLSearchParams}
@@ -44,7 +44,7 @@ function getParameter(){
 https://twigl.app/?ol=true&mode=0&source=precision%20highp%20float%3B%0Auniform%20vec2%20resolution%3B%0Auniform%20vec2%20mouse%3B%0Auniform%20float%20time%3B%0Auniform%20sampler2D%20backbuffer%3B%0Avoid%20main(){vec2%20r%3Dresolution,p%3D(gl_FragCoord.xy*2.-r)/min(r.x,r.y)%2Bmouse%3Bfor(int%20i%3D0%3Bi%3C8%3B%2B%2Bi){p.xy%3Dabs(p)/abs(dot(p,p))-vec2(.9%2Bcos(time*.2)*.4)%3B}gl_FragColor%3Dvec4(p.xxy,1)%3B}
 ```
 
-``` .glsl
+```.glsl
 precision highp float;
 uniform vec2 resolution;
 uniform vec2 mouse;
@@ -55,17 +55,17 @@ void main(){vec2 r=resolution,p=(gl_FragCoord.xy*2.-r)/min(r.x,r.y)+mouse;for(in
 
 本家での処理を確認
 
-[ASCII文字とURLエンコードの対応表](https://www.seil.jp/doc/index.html#tool/url-encode.html)
+[ASCII 文字と URL エンコードの対応表](https://www.seil.jp/doc/index.html#tool/url-encode.html)
 
 なるほど、`%2b` やらで処理をしているみたいですわ
 
-これは、素直に書いたとき、一旦パースさせる必要があるってことka
+これは、素直に書いたとき、一旦パースさせる必要があるってこと ka
 
 # 📝 2022/03/09
 
 [https://pome-ta.github.io/cloneGraphtoy4Mobile/](https://pome-ta.github.io/cloneGraphtoy4Mobile/)
 
-検証用にpages化
+検証用に pages 化
 
 # 📝 2022/02/28
 
@@ -73,8 +73,8 @@ void main(){vec2 r=resolution,p=(gl_FragCoord.xy*2.-r)/min(r.x,r.y)+mouse;for(in
 
 ## コード内容整理
 
-- ヘッダー情報とかゴリゴリ消していいのかしら？
-- インデント整理
-- 構造理解
-- 消していいやつ
-- コード部分monospace にする
+-   ヘッダー情報とかゴリゴリ消していいのかしら？
+-   インデント整理
+-   構造理解
+-   消していいやつ
+-   コード部分 monospace にする
