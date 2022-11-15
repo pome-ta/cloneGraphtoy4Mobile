@@ -73,8 +73,8 @@ void main(){vec2 r=resolution,p=(gl_FragCoord.xy*2.-r)/min(r.x,r.y)+mouse;for(in
 
 ## コード内容整理
 
--   ヘッダー情報とかゴリゴリ消していいのかしら？
--   インデント整理
--   構造理解
--   消していいやつ
--   コード部分 monospace にする
+- ヘッダー情報とかゴリゴリ消していいのかしら？
+- インデント整理
+- 構造理解
+- 消していいやつ
+- コード部分 monospace にする
